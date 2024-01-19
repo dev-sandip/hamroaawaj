@@ -2,7 +2,6 @@ export interface UserType {
   name: string;
   email: string;
   password: string;
-  username: string;
   validId: string;
   profileImg: string;
   createdAt: string;
@@ -11,3 +10,5 @@ export interface UserType {
   isMod: boolean;
   isAdmin: boolean;
 }
+
+

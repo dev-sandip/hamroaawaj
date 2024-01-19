@@ -6,7 +6,6 @@ export default class AuthValidator {
     name: z.string().min(3).max(255),
     email: z.string().email(),
     password: z.string().min(6).max(255),
-    username: z.string().min(3).max(255),
     validId: z.string().min(3).max(255),
     legaldocImg: z.string(),
   });
@@ -24,3 +23,5 @@ export default class AuthValidator {
     return AuthValidator.LoginSchema.safeParse(loginData);
   };
 }
+
+export type LoginDataType = z.infer<typeof AuthValidator.LoginSchema>;
