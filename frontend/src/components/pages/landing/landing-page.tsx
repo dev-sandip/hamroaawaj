@@ -1,4 +1,6 @@
+import { Link } from "react-router-dom";
+
 const LandingPage = () => {
-  return <h1>Hello World</h1>;
+  return <Link to="/report">Report</Link>;
 };
 export default LandingPage;
