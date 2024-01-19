@@ -6,7 +6,7 @@ import ResponseController from "./ResponseController";
 class ReportController {
     public static ReportPost = async (req: Request, res: Response) => {
         try {
-            const { userId, title, location, tag, text, files, labels } = req.body;
+            const { userId, title, location, tag, text, files } = req.body;
 
             const newReport = new Report({
                 userId,
@@ -15,7 +15,6 @@ class ReportController {
                 tag,
                 text,
                 files,
-                labels,
             });
 
             await newReport.save();
