@@ -2,7 +2,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import UserAdminPage from "./user-admin-page";
 import ReportAdminPage from "./report-admin-page";
 
-export default function TabsDemo() {
+export default function AdminPage() {
   return (
     <div className="mt-6 h-full w-full flex justify-center items-center">
       {/* <div className="w-full"> */}

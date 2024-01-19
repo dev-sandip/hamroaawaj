@@ -54,7 +54,6 @@ class UserAuthController {
       const { email, password } = req.body;
       const userAuth = await User.findOne({ email: email });
 
-
       // Check if user exists
       if (!userAuth) {
         return ResponseController.HandleResponseError(res, {
@@ -65,7 +64,6 @@ class UserAuthController {
       }
 
       const isPasswordValid = await compare(password, userAuth.password);
-
 
       // Check if password is valid
       if (!isPasswordValid) {
@@ -91,7 +89,6 @@ class UserAuthController {
         data: user,
       });
     } catch (error) {
-
       return ResponseController.Handle500Error(res, error);
     }
   };
@@ -119,11 +116,11 @@ class UserAuthController {
     }
   };
   /**
-    * Logout user.
-    * @param req - The request object.
-    * @param res - The response object.
-    * @returns A success response with status 200 and an empty data object.
-    */
+   * Logout user.
+   * @param req - The request object.
+   * @param res - The response object.
+   * @returns A success response with status 200 and an empty data object.
+   */
   public static logout = async (req: Request, res: Response) => {
     try {
       //logout user
@@ -174,7 +171,57 @@ class UserAuthController {
     }
   };
 
+  public static getUnverifiedUsers = async (req: Request, res: Response) => {
+    try {
+      const unverifiedUsers = await User.find({ isVerified: false });
 
+      return ResponseController.HandleSuccessResponse(res, {
+        status: 200,
+        message: "Unverified users fetched successfully!",
+        data: unverifiedUsers.map((user) => {
+          return {
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            profileImg: user.profileImg,
+          };
+        }),
+      });
+    } catch (error) {
+      return ResponseController.Handle500Error(res, error);
+    }
+  };
 
+  public static getUserById = async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+
+      if (!id) {
+        return ResponseController.HandleResponseError(res, {
+          status: 400,
+          message: "User id is required.",
+          errors: [],
+        });
+      }
+
+      const user = await User.findById(id);
+
+      if (user) {
+        return ResponseController.HandleSuccessResponse(res, {
+          status: 200,
+          message: "User fetched successfully!",
+          data: user,
+        });
+      } else {
+        return ResponseController.HandleResponseError(res, {
+          status: 404,
+          message: "User not found!",
+          errors: [],
+        });
+      }
+    } catch (error) {
+      return ResponseController.Handle500Error(res, error);
+    }
+  };
 }
 export default UserAuthController;

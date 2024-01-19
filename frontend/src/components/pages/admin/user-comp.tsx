@@ -1,18 +1,18 @@
-interface UserCompProps {
-  name: string;
-  img: string;
-  email: string;
-}
+import { UserType } from "@/types/user.types";
+import { Link } from "react-router-dom";
 
-const UserComp = ({ name, img, email }: UserCompProps) => {
+const UserComp = ({ user }: { user: Partial<UserType> }) => {
   return (
-    <div className="flex items-center gap-4">
-      <img className="w-10 h-10 rounded-full" src={img} alt="" />
+    <Link
+      to={`user/${user._id}` || ""}
+      className="flex items-center gap-4 p-2 hover:bg-muted rounded-lg"
+    >
+      <img className="w-10 h-10 rounded-full" src={user.profileImg} alt="" />
       <div className="font-medium text-foreground">
-        <div>{name}</div>
-        <div className="text-sm text-muted-foreground">{email}</div>
+        <div>{user.name}</div>
+        <div className="text-sm text-muted-foreground">{user.email}</div>
       </div>
-    </div>
+    </Link>
   );
 };
 export default UserComp;
