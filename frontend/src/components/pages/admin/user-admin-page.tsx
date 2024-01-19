@@ -21,9 +21,15 @@ const UserAdminPage = () => {
 
   return (
     <div className="grid grid-cols-2 gap-4">
-      {users.map((user, index) => {
-        return <UserComp key={index} user={user} />;
-      })}
+      {users.length > 0 ? (
+        users.map((user, index) => {
+          return <UserComp key={index} user={user} />;
+        })
+      ) : (
+        <div className="text-center text-gray-500 dark:text-gray-400 m-auto w-full">
+          No users found
+        </div>
+      )}
     </div>
   );
 };

@@ -13,6 +13,9 @@ const AdminPage = lazy(() => import("./components/pages/admin/admin-page"));
 const IndividualReportPage = lazy(
   () => import("./components/pages/admin/individual-report-page")
 );
+const IndividualUserPage = lazy(
+  () => import("./components/pages/admin/individual-user-page")
+);
 
 interface RouteType {
   path: string;
@@ -51,6 +54,10 @@ const routes: RouteType[] = [
   {
     path: "/dashboard/report/:reportId",
     Component: IndividualReportPage,
+  },
+  {
+    path: "/dashboard/user/:userId",
+    Component: IndividualUserPage,
   },
 ];
 

@@ -12,5 +12,6 @@ authRouter.get("/verify", verifyToken, UserAuthController.verifyUser);
 authRouter.post("/logout", UserAuthController.logout)
 authRouter.put("/verfiyUserByDoc", UserAuthController.VerifyUserByValidDoc)
 authRouter.get("/unverifiedUsers", UserAuthController.getUnverifiedUsers)
+authRouter.get("/id/:id", UserAuthController.getUserById)
 
 export default authRouter;

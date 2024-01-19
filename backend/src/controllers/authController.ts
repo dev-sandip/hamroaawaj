@@ -191,5 +191,37 @@ class UserAuthController {
       return ResponseController.Handle500Error(res, error);
     }
   };
+
+  public static getUserById = async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+
+      if (!id) {
+        return ResponseController.HandleResponseError(res, {
+          status: 400,
+          message: "User id is required.",
+          errors: [],
+        });
+      }
+
+      const user = await User.findById(id);
+
+      if (user) {
+        return ResponseController.HandleSuccessResponse(res, {
+          status: 200,
+          message: "User fetched successfully!",
+          data: user,
+        });
+      } else {
+        return ResponseController.HandleResponseError(res, {
+          status: 404,
+          message: "User not found!",
+          errors: [],
+        });
+      }
+    } catch (error) {
+      return ResponseController.Handle500Error(res, error);
+    }
+  };
 }
 export default UserAuthController;
