@@ -1,6 +1,9 @@
 import { Request, Response } from "express";
 import Report from "../models/Report.model";
 import ResponseController from "./ResponseController";
+import CommentModel from "../models/Comment.model";
+import UserModel from "../models/User.model";
+import ReportModel from "../models/Report.model";
 
 
 class ReportController {
@@ -140,8 +143,62 @@ class ReportController {
             return ResponseController.Handle500Error(res, error);
         }
     };
+
+
+
+
+    public static Comment = async (req: Request, res: Response) => {
+        try {
+            const { userId, reportId, commentText } = req.body;
+
+            if (!reportId || !userId) {
+                return ResponseController.HandleResponseError(res, {
+                    status: 400,
+                    message: "reportId and userId are required for commenting.",
+                    errors: [],
+                });
+            }
+
+            if (!commentText) {
+                return ResponseController.HandleResponseError(res, {
+                    status: 400,
+                    message: "Comment cannot be null!",
+                    errors: [],
+                });
+            }
+
+            const report = await ReportModel.findById(reportId);
+
+            if (!report) {
+                return ResponseController.HandleResponseError(res, {
+                    status: 404,
+                    message: "Post/Report not found!",
+                    errors: [],
+                });
+            }
+
+
+
+            const newComment = new CommentModel({
+                userId,
+                reportId,
+                comment: commentText,
+            });
+
+            // Save the new comment to the database
+            await newComment.save();
+
+            return ResponseController.HandleSuccessResponse(res, {
+                status: 201,
+                message: "Comment added successfully!",
+                data: newComment,
+            });
+        } catch (error) {
+            return ResponseController.Handle500Error(res, error);
+        }
+    };
+
+
 }
-
-
 
 export default ReportController;

@@ -8,6 +8,7 @@ ReportRouter.get("/fetchAll", ReportController.FetchReports);
 ReportRouter.get("/fetchwithoutlabel", ReportController.FetchReportWithoutLabel);
 ReportRouter.put("/updateLabel", ReportController.UpdateLabel);
 ReportRouter.put("/compeleteReport", ReportController.isCompleted);
+ReportRouter.post("/comment", ReportController.Comment);
 
 
 

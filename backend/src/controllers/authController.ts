@@ -85,7 +85,6 @@ class UserAuthController {
 
       //return user data
       const user = await User.findById(userAuth._id);
-      console.log("🚀 ~ UserAuthController ~ Login= ~ user:", user);
       return ResponseController.HandleSuccessResponse(res, {
         status: 200,
         message: "Login successful!",
