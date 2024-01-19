@@ -198,6 +198,38 @@ class ReportController {
         }
     };
 
+    public static getReportById = async (req: Request, res: Response) => {
+        try {
+            const { id } = req.params;
+
+            if (!id) {
+                return ResponseController.HandleResponseError(res, {
+                    status: 400,
+                    message: "id is required for fetching the report.",
+                    errors: [],
+                });
+            }
+
+            const report = await ReportModel.findById(id);
+
+            if (!report) {
+                return ResponseController.HandleResponseError(res, {
+                    status: 404,
+                    message: "Report not found.",
+                    errors: [],
+                });
+            }
+
+            return ResponseController.HandleSuccessResponse(res, {
+                status: 200,
+                message: "Report fetched successfully!",
+                data: report,
+            });
+        } catch (error) {
+            return ResponseController.Handle500Error(res, error);
+        }
+    }
+
 
 }
 

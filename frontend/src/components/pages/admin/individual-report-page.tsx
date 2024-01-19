@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { ComboboxDemo } from "../report/combo-box";
-import { report } from "process";
 import { ReportType } from "@/validators/report-validators";
+import ReportHandler from "@/handlers/report-handler";
+import { useParams } from "react-router-dom";
+import toast from "react-hot-toast";
+import { Button } from "@/components/ui/button";
 
 const labels = [
   {
@@ -18,15 +21,33 @@ const IndividualReportPage = () => {
   const [tag, setTag] = useState("");
   const [tags, setTags] = useState([] as string[]);
   const [report, setReport] = useState({} as ReportType);
-
+  const { reportId } = useParams();
   useEffect(() => {
-    const getReport = async () => {};
+    const getReport = async () => {
+      const res = await ReportHandler.getReportById(reportId || "");
+      if (res.success) {
+        setReport(res.data);
+      } else {
+        toast.error("No report found");
+      }
+    };
     getReport();
   }, []);
 
   useEffect(() => {
+    if (!tag) return;
+    if (tags.includes(tag)) return;
     setTags((prev) => [...prev, tag]);
   }, [tag]);
+
+  const handleUpdateLabel = async () => {
+    const res = await ReportHandler.updateReportLabel(reportId || "", tags);
+    if (res.success) {
+      toast.success("Report updated");
+    } else {
+      toast.error("Error updating report");
+    }
+  };
 
   return (
     <>
@@ -46,17 +67,14 @@ const IndividualReportPage = () => {
         >
           <img
             alt="blog photo"
-            src="https://images.unsplash.com/photo-1542435503-956c469947f6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80"
+            src={report.files ? report.files[0] : ""}
             className="w-full object-contain h-max"
           />
           <div className="bg-white w-full p-4">
             <h1 className="text-green-600 text-2xl font-medium">
-              Should You Get Online Education?
+              {report.title}
             </h1>
-            <p className="text-gray-600 font-light text-md">
-              It is difficult to believe that we have become so used to having
-              instant access to information at...
-            </p>
+            <p className="text-gray-600 font-light text-md">{report.text}</p>
             <div
               className="
         flex flex-wrap
@@ -68,22 +86,32 @@ const IndividualReportPage = () => {
         font-medium
       "
             >
-              {
+              {tags.map((tag) => (
                 <span className="m-1 px-2 py-1 rounded bg-green-500">
                   {" "}
-                  #online{" "}
+                  #{tag && tag}{" "}
                 </span>
-              }
+              ))}
             </div>
           </div>
         </div>
-        <div>
+        <div className="flex flex-col gap-4">
           <h3>Add labels here</h3>
           <ComboboxDemo
             arrValues={labels}
             location={tag}
             setLocation={setTag}
           />
+          {labels && (
+            <div className="flex flex-col gap-4">
+              <Button variant="outline" onClick={() => setTags([])}>
+                Discard
+              </Button>
+              <Button
+              onClick={handleUpdateLabel}
+              >Update</Button>
+            </div>
+          )}
         </div>
       </div>
     </>

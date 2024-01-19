@@ -11,4 +11,15 @@ export default class ReportHandler {
   > => {
     return fetchUrl("/report/fetchwithoutlabel", "GET");
   };
+  public static getReportById = (
+    id: string
+  ): Promise<ServiceResponseType<ReportType>> => {
+    return fetchUrl(`/report/id/${id}`, "GET");
+  };
+  public static updateReportLabel = (
+    reportId: string,
+    label: string[]
+  ): Promise<ServiceResponseType<ReportType>> => {
+    return fetchUrl(`/report/updateLabel`, "PUT", { postId: reportId, label });
+  };
 }
