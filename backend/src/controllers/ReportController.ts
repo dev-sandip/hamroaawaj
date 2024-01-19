@@ -41,6 +41,29 @@ class ReportController {
             return ResponseController.Handle500Error(res, error);
         }
     };
+    public static FetchReportWithoutLabel = async (req: Request, res: Response) => {
+        try {
+            const reports = await Report.find();
+            const reportsWithoutLabels = reports.filter(report => report.labels.length === 0);
+
+            if (reportsWithoutLabels.length > 0) {
+                return ResponseController.HandleSuccessResponse(res, {
+                    status: 200,
+                    message: "Reports without labels fetched successfully!",
+                    data: reportsWithoutLabels,
+                });
+            } else {
+                return ResponseController.HandleSuccessResponse(res, {
+                    status: 404,
+                    message: "No reports without labels found!",
+                    data: [],
+                });
+            }
+        } catch (error) {
+            return ResponseController.Handle500Error(res, error);
+        }
+    };
+
 }
 
 
