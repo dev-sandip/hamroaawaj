@@ -6,10 +6,10 @@ const Profile = () => {
   const navigate = useNavigate();
   const { user } = useGlobalContext();
   useEffect(() => {
-    if (!user) {
-      navigate("/login");
-      console.log("user not logged in");
-    }
+    // if (!user) {
+    //   navigate("/login");
+    //   console.log("user not logged in");
+    // }
   });
 
   return (
@@ -65,27 +65,29 @@ const Profile = () => {
             </ul>
           </div>
         </div>
-        <div className="flex flex-col items-center h-[60vh] border-4 border-red-500 rounded-[20px] pb-10">
+        <div className=" w-80 flex flex-col items-center border-4 border-gray-500 rounded-lg pb-10">
           <img
-            className="w-24 h-24 mb-3 rounded-full m-7 shadow-lg"
+            className=" h-24 mb-3 rounded-full m-7 shadow-lg"
             src="https://2.img-dpreview.com/files/p/E~C1000x0S4000x4000T1200x1200~articles/3925134721/0266554465.jpeg"
             alt="Bonnie image"
           />
-          <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-            Bonnie Green
+          <h5 className="mb-1 text-xl font-medium text-slate-800">
+            User
           </h5>
-          <span className="text-sm text-gray-500 dark:text-gray-400">
+          <span className="text-md text-gray-500 dark:text-gray-400">
             Visual Designer
           </span>
-          <div className=" flex space-x-10 h-[7vh] w-auto me-[20vw]">
-            <span className="w-10 ms-[20px]">Rank</span>
+           {/* <div className="   flex  space-x-10 h-[7vh] w-auto me-[20vw]"> */}
+            <span className="w-10 h-aut0 mx-8 place-items-center">Rank</span>
+
             <img
-              className=" aspect-square w-40 h-40 ms-10 shadow-lg"
-              src="https://static.botsrv2.com/website/img/quriobot_favicon.1727b193.png"
+              className=" aspect-square w-14 h-auto  shadow-lg rounded-2xl"
+              src="https://cdn-icons-png.flaticon.com/512/8037/8037137.png"
             />
-          </div>
+          {/* </div> */}
         </div>
       </div>
+      
     </>
   );
 };
