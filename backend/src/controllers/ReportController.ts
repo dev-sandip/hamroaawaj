@@ -103,6 +103,43 @@ class ReportController {
     };
 
 
+
+
+    public static isCompleted = async (req: Request, res: Response) => {
+        try {
+            const { reportId } = req.body;
+
+            if (!reportId) {
+                return ResponseController.HandleResponseError(res, {
+                    status: 400,
+                    message: "reportId is required for verification.",
+                    errors: [],
+                });
+            }
+
+            const updatedReport = await Report.findOneAndUpdate(
+                { _id: reportId, isCompleted: false },
+                { $set: { isCompleted: true, updatedAt: new Date() } },
+                { new: true }
+            );
+
+            if (updatedReport) {
+                return ResponseController.HandleSuccessResponse(res, {
+                    status: 200,
+                    message: "Report completed  successfully!",
+                    data: updatedReport,
+                });
+            } else {
+                return ResponseController.HandleResponseError(res, {
+                    status: 404,
+                    message: "Report not found or already completed.",
+                    errors: [],
+                });
+            }
+        } catch (error) {
+            return ResponseController.Handle500Error(res, error);
+        }
+    };
 }
 
 
