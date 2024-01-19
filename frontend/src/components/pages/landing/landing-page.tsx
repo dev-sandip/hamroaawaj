@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import Side from "../sidebar/Side";
 import Profile from "../profile/profile";
+import Side from "@/components/shared/sidebar/Side";
 
 const LandingPage = () => {
   return (
