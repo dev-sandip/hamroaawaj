@@ -9,6 +9,7 @@ export interface UserType {
   legaldocImg: string;
   isMod: boolean;
   isAdmin: boolean;
+  _id: string;
 }
 
 
