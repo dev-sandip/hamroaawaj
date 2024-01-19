@@ -1,20 +1,17 @@
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import { HiOutlineEye, HiOutlineEyeSlash } from "react-icons/hi2";
 import Loading from "react-loading";
 import { shadows } from "@/assets/constants/styles";
 import LoginSvg from "@/svg/LoginSvg";
 import { useRef, useState } from "react";
-import AuthValidator from "@/validators/auth-validators";
+import AuthValidator, { LoginDataType } from "@/validators/auth-validators";
 import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
-
-interface LoginDataType {
-  email: string;
-  password: string;
-}
+import AuthHandler from "@/handlers/auth-handler";
+import { useGlobalContext } from "@/hooks/use-global-context";
 
 const Login = () => {
   const [formData, setFormData] = useState({} as LoginDataType);
@@ -22,7 +19,9 @@ const Login = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const submitBtnRef = useRef<HTMLButtonElement>(null);
   const passwordInputRef = useRef<HTMLInputElement>(null);
-  const handleSubmit = (e: any) => {
+  const navigate = useNavigate();
+  const { setUser } = useGlobalContext();
+  const handleSubmit = async (e: any) => {
     if (isSubmitting) return;
     e.preventDefault();
     console.log(formData);
@@ -31,6 +30,17 @@ const Login = () => {
     if (!data.success) {
       toast.error("Please fill all the fields");
       return;
+    }
+    setIsSubmitting(true);
+    const res = await AuthHandler.login(data.data);
+    setIsSubmitting(false);
+    if (res.success) {
+      toast.success("Logged in successfully");
+      setUser(res.data);
+      navigate("/");
+    } else {
+      console.log(res);
+      toast.error(res.message);
     }
   };
 

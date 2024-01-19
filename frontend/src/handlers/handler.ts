@@ -21,7 +21,7 @@ export async function fetchUrl<T>(
 ): Promise<ServiceResponseType<T>> {
   try {
     const response = await axios({
-      url: `${import.meta.env.VITE_BACKEND_URL}${url}`,
+      url: `${import.meta.env.VITE_BACKEND_URL}/api/v1${url}`,
       method,
       data,
       headers,

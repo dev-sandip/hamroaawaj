@@ -7,6 +7,8 @@ const LandingPage = lazy(
 );
 const SignupPage = lazy(() => import("./components/pages/auth/signup"));
 const LoginPage = lazy(() => import("./components/pages/auth/login"));
+const ReportPage = lazy(() => import("./components/pages/report/report-page"));
+
 interface RouteType {
   path: string;
   Layout?: ({ children }: { children: React.ReactNode }) => JSX.Element;
@@ -28,6 +30,10 @@ const routes: RouteType[] = [
     path: "/login",
     Component: LoginPage,
     noRootLayout: true,
+  },
+  {
+    path: "/report",
+    Component: ReportPage,
   },
 ];
 

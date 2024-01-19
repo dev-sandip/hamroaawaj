@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import { HiOutlineEye, HiOutlineEyeSlash } from "react-icons/hi2";
 import { cn } from "@/lib/utils";
@@ -12,6 +12,8 @@ import { UserType } from "@/types/user.types";
 import { Upload } from "lucide-react";
 import toast from "react-hot-toast";
 import AuthValidator from "@/validators/auth-validators";
+import AuthHandler from "@/handlers/auth-handler";
+import { useGlobalContext } from "@/hooks/use-global-context";
 
 const UserSignup = () => {
   const [formData, setFormData] = useState({} as UserType);
@@ -19,14 +21,27 @@ const UserSignup = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const submitBtnRef = useRef<HTMLButtonElement>(null);
   const passwordInputRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
+  const { setUser } = useGlobalContext();
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     if (isSubmitting) return;
+    console.log(formData);
     e.preventDefault();
     const data = AuthValidator.validateUser(formData);
     if (!data.success) {
       toast.error("Please fill all the fields");
       return;
+    }
+    setIsSubmitting(true);
+    const res = await AuthHandler.signup(data.data);
+    setIsSubmitting(false);
+    if (res.success) {
+      toast.success("Your account has been created successfully");
+      setUser(res.data);
+      navigate("/");
+    } else {
+      toast.error(res.message);
     }
   };
 
@@ -130,6 +145,8 @@ const UserSignup = () => {
 
                 <Button
                   onClick={handleImageUpload}
+                  role="button"
+                  type="button"
                   variant="secondary"
                   className="border-2 flex gap-3 items-center justify-center"
                 >
