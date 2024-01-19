@@ -1,4 +1,17 @@
+import { useGlobalContext } from "@/hooks/use-global-context";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 const Profile = () => {
+  const navigate = useNavigate();
+  const { user } = useGlobalContext();
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+      console.log("user not logged in");
+    }
+  });
+
   return (
     <>
       <div className=" max-w-sm  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
