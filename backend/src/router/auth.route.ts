@@ -10,5 +10,6 @@ authRouter.post(
 authRouter.post("/login", UserAuthController.Login);
 authRouter.get("/verify", verifyToken, UserAuthController.verifyUser);
 authRouter.post("/logout", UserAuthController.logout)
+authRouter.put("/verfiyUserByDoc", UserAuthController.VerifyUserByValidDoc)
 
 export default authRouter;
