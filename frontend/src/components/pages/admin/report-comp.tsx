@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const ReportComp = ({ report }: { report: ReportType }) => {
   return (
     <Link
-      to={report._id}
+      to={`report/${report._id}`}
       className="
             overflow-hidden
             shadow-lg
@@ -23,7 +23,10 @@ const ReportComp = ({ report }: { report: ReportType }) => {
         className="max-h-40 w-full object-cover"
       />
       <div className="bg-white w-full p-4">
-        <Link to={report._id} className="text-green-600 text-2xl font-medium">
+        <Link
+          to={`report/${report._id}`}
+          className="text-green-600 text-2xl font-medium"
+        >
           {report.title}
         </Link>
         <p className="text-gray-600 font-light text-md">
