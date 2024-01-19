@@ -53,7 +53,7 @@ class UserAuthController {
     try {
       const { email, password } = req.body;
       const userAuth = await User.findOne({ email: email });
-      console.log("🚀 ~ UserAuthController ~ Login= ~ userAuth:", userAuth);
+
 
       // Check if user exists
       if (!userAuth) {
@@ -65,10 +65,7 @@ class UserAuthController {
       }
 
       const isPasswordValid = await compare(password, userAuth.password);
-      console.log(
-        "🚀 ~ UserAuthController ~ Login= ~ isPasswordValid:",
-        isPasswordValid
-      );
+
 
       // Check if password is valid
       if (!isPasswordValid) {
@@ -88,14 +85,13 @@ class UserAuthController {
 
       //return user data
       const user = await User.findById(userAuth._id);
-      console.log("🚀 ~ UserAuthController ~ Login= ~ user:", user);
       return ResponseController.HandleSuccessResponse(res, {
         status: 200,
         message: "Login successful!",
         data: user,
       });
     } catch (error) {
-      console.log("🚀 ~ UserAuthController ~ Login= ~ error:", error);
+
       return ResponseController.Handle500Error(res, error);
     }
   };
@@ -137,6 +133,42 @@ class UserAuthController {
         message: "Logout successful!",
         data: {},
       });
+    } catch (error) {
+      return ResponseController.Handle500Error(res, error);
+    }
+  };
+
+  public static VerifyUserByValidDoc = async (req: Request, res: Response) => {
+    try {
+      const { userId } = req.body;
+
+      if (!userId) {
+        return ResponseController.HandleResponseError(res, {
+          status: 400,
+          message: "userId is required for verification.",
+          errors: [],
+        });
+      }
+
+      const updatedUser = await User.findOneAndUpdate(
+        { _id: userId, isVerified: false },
+        { $set: { isVerified: true, updatedAt: new Date() } },
+        { new: true }
+      );
+
+      if (updatedUser) {
+        return ResponseController.HandleSuccessResponse(res, {
+          status: 200,
+          message: "User verified successfully!",
+          data: updatedUser,
+        });
+      } else {
+        return ResponseController.HandleResponseError(res, {
+          status: 404,
+          message: "User not found or already verified.",
+          errors: [],
+        });
+      }
     } catch (error) {
       return ResponseController.Handle500Error(res, error);
     }
