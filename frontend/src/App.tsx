@@ -6,7 +6,7 @@ const LandingPage = lazy(
   () => import("./components/pages/landing/landing-page")
 );
 const SignupPage = lazy(() => import("./components/pages/auth/signup"));
-
+const LoginPage = lazy(() => import("./components/pages/auth/login"));
 interface RouteType {
   path: string;
   Layout?: ({ children }: { children: React.ReactNode }) => JSX.Element;
@@ -22,6 +22,12 @@ const routes: RouteType[] = [
   {
     path: "/signup",
     Component: SignupPage,
+    noRootLayout: true,
+  },
+  {
+    path: "/login",
+    Component: LoginPage,
+    noRootLayout: true,
   },
 ];
 
