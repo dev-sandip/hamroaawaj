@@ -3,17 +3,18 @@ import Report from "../models/Report.model";
 import ResponseController from "./ResponseController";
 
 
-class ReportPostController {
+class ReportController {
     public static ReportPost = async (req: Request, res: Response) => {
         try {
-            const { userId, title, location, tag, content, labels } = req.body;
+            const { userId, title, location, tag, text, files, labels } = req.body;
 
             const newReport = new Report({
                 userId,
                 title,
                 location,
                 tag,
-                content,
+                text,
+                files,
                 labels,
             });
 
@@ -28,6 +29,21 @@ class ReportPostController {
             return ResponseController.Handle500Error(res, error);
         }
     };
+    public static FetchReports = async (req: Request, res: Response) => {
+        try {
+
+            const reports = await Report.find();
+            return ResponseController.HandleSuccessResponse(res, {
+                status: 200,
+                message: "Reports fetched successfully!",
+                data: reports,
+            });
+        } catch (error) {
+            return ResponseController.Handle500Error(res, error);
+        }
+    };
 }
 
-export default ReportPostController;
+
+
+export default ReportController;

@@ -25,10 +25,10 @@ const ReportSchema = new mongoose.Schema({
         required: true,
     },
     tag: [String],
-    content: {
-        text: String,
-        image: [String]
+    text: {
+        type: String,
     },
+    files: [String],
     labels: [String]
 
 });

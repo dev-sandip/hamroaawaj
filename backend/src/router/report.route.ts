@@ -1,12 +1,13 @@
 import { Router } from "express";
-import ReportPostController from "../controllers/ReportController";
+import ReportController from "../controllers/ReportController";
 
 const ReportRouter = Router();
 
 ReportRouter.post(
     "/post",
-    ReportPostController.ReportPost
+    ReportController.ReportPost
 );
+ReportRouter.get("/fetchAll", ReportController.FetchReports)
 
 
 export default ReportRouter;
