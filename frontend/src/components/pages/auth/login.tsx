@@ -1,29 +1,33 @@
+import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import { HiOutlineEye, HiOutlineEyeSlash } from "react-icons/hi2";
-import { cn } from "@/lib/utils";
-import { useRef, useState } from "react";
 import Loading from "react-loading";
 import { shadows } from "@/assets/constants/styles";
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
 import LoginSvg from "@/svg/LoginSvg";
-import { UserType } from "@/types/user.types";
-import { Upload } from "lucide-react";
-import toast from "react-hot-toast";
+import { useRef, useState } from "react";
 import AuthValidator from "@/validators/auth-validators";
+import toast from "react-hot-toast";
+import { Button } from "@/components/ui/button";
 
-const UserSignup = () => {
-  const [formData, setFormData] = useState({} as UserType);
+interface LoginDataType {
+  email: string;
+  password: string;
+}
+
+const Login = () => {
+  const [formData, setFormData] = useState({} as LoginDataType);
   const [passwordType, setPasswordType] = useState("password");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const submitBtnRef = useRef<HTMLButtonElement>(null);
   const passwordInputRef = useRef<HTMLInputElement>(null);
-
   const handleSubmit = (e: any) => {
     if (isSubmitting) return;
     e.preventDefault();
-    const data = AuthValidator.validateUser(formData);
+    console.log(formData);
+    const data = AuthValidator.validateLogin(formData);
+    console.log(data);
     if (!data.success) {
       toast.error("Please fill all the fields");
       return;
@@ -42,39 +46,6 @@ const UserSignup = () => {
     }
   };
 
-  const handleImageUpload = async () => {
-    if (isSubmitting) return;
-    const input = document.createElement("input");
-    input.type = "file";
-    input.accept = "image/*";
-    input.onchange = (event) => {
-      const file = (event.target as HTMLInputElement)?.files?.[0];
-      if (file) {
-        // Check the file type
-        if (!file.type.startsWith("image/")) {
-          toast.error("Please upload an image file.");
-          return;
-        }
-
-        // Check the file size
-        const fileSizeInMB = file.size / (1024 * 1024);
-        const maxSizeInMB = 5;
-        if (fileSizeInMB > maxSizeInMB) {
-          toast.error(`Please upload an image smaller than ${maxSizeInMB} MB.`);
-          return;
-        }
-
-        const reader = new FileReader();
-        reader.onloadend = async () => {
-          const base64Data = reader.result as string;
-          setFormData({ ...formData, legaldocImg: base64Data });
-        };
-        reader.readAsDataURL(file);
-      }
-    };
-    input.click();
-  };
-
   return (
     <div className="relative min-h-screen bg-muted flex justify-center sm:max-h-[90vh] overflow-hidden">
       <motion.div
@@ -82,7 +53,7 @@ const UserSignup = () => {
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1, transition: { duration: 0.4 } }}
         className={cn(
-          "flex justify-center items-center flex-1 max-w-screen-xl m-0 shadow flex-reverse sm:m-10  sm:rounded-lg flex-row-reverse",
+          "flex justify-center items-center flex-1 max-w-screen-xl m-0 shadow flex-reverse sm:m-10  sm:rounded-lg flex-row",
           shadows.sm
         )}
       >
@@ -106,42 +77,7 @@ const UserSignup = () => {
                 className="flex flex-col max-w-xs gap-4 mx-auto"
               >
                 <motion.input
-                  whileHover={{ scale: 1.05 }}
                   autoFocus
-                  className="w-full px-4 py-3 text-sm font-medium border border-gray-200 rounded-lg bg-muted placeholder-muted-foreground placeholder:opacity-40 focus:outline-none focus:border-gray-400 focus:bg-background"
-                  type="text"
-                  id="name"
-                  name="name"
-                  placeholder="Your Name"
-                  onChange={(e) => handleChange(e)}
-                  value={formData.name}
-                />
-                <motion.input
-                  whileHover={{ scale: 1.05 }}
-                  autoFocus
-                  className="w-full px-4 py-3 text-sm font-medium border border-gray-200 rounded-lg bg-muted placeholder-muted-foreground placeholder:opacity-40 focus:outline-none focus:border-gray-400 focus:bg-background"
-                  type="text"
-                  id="validId"
-                  name="validId"
-                  placeholder="Citizenship Number"
-                  onChange={(e) => handleChange(e)}
-                  value={formData.validId}
-                />
-
-                <Button
-                  onClick={handleImageUpload}
-                  variant="secondary"
-                  className="border-2 flex gap-3 items-center justify-center"
-                >
-                  <span>
-                    {formData.legaldocImg
-                      ? "Citizenship Uploaded"
-                      : "Upload Citizenship Image"}
-                  </span>
-                  <Upload className="w-4 h-4" />
-                </Button>
-
-                <motion.input
                   whileHover={{ scale: 1.05 }}
                   className="w-full px-4 py-3 text-sm font-medium border border-gray-200 rounded-lg bg-muted placeholder-muted-foreground placeholder:opacity-40 focus:outline-none focus:border-gray-400 focus:bg-background"
                   type="email"
@@ -166,12 +102,12 @@ const UserSignup = () => {
                     (passwordType === "password" ? (
                       <HiOutlineEyeSlash
                         onClick={handlePasswordVisibility}
-                        className="absolute cursor-pointer text-muted-foreground right-3 inset-y-1/2 -translate-y-1/2"
+                        className="absolute cursor-pointer text-muted-foreground right-3 top-3"
                       />
                     ) : (
                       <HiOutlineEye
                         onClick={handlePasswordVisibility}
-                        className="absolute cursor-pointer text-muted-foreground right-3 inset-y-1/2 -translate-y-1/2"
+                        className="absolute cursor-pointer text-muted-foreground right-3 top-3"
                       />
                     ))}
                 </motion.div>
@@ -183,7 +119,7 @@ const UserSignup = () => {
                     isSubmitting && "cursor-not-allowed, opacity-50"
                   )}
                 >
-                  <span>Sign Up</span>
+                  <span>Login</span>
                   {isSubmitting ? (
                     <Loading type="spin" color="#000" height={20} width={20} />
                   ) : (
@@ -191,12 +127,12 @@ const UserSignup = () => {
                   )}
                 </Button>
                 <p className="mt-2 text-xs text-center text-gray-600">
-                  Already have an account?{" "}
+                  Don't have an account?{" "}
                   <Link
-                    to="/login"
+                    to="/signup"
                     className="border-b border-gray-500 border-dotted text-primary"
                   >
-                    login
+                    sign up{" "}
                   </Link>
                 </p>
               </form>
@@ -207,4 +143,4 @@ const UserSignup = () => {
     </div>
   );
 };
-export default UserSignup;
+export default Login;

@@ -1,5 +1,5 @@
 import { UserType } from "@/types/user.types";
-import { z, ZodSchema } from "zod";
+import { z } from "zod";
 
 export default class AuthValidator {
   public static UserSchema = z.object({
@@ -13,5 +13,14 @@ export default class AuthValidator {
 
   public static validateUser = (userData: Partial<UserType>) => {
     return AuthValidator.UserSchema.safeParse(userData);
+  };
+
+  public static LoginSchema = z.object({
+    email: z.string().email(),
+    password: z.string().min(6).max(255),
+  });
+
+  public static validateLogin = (loginData: Partial<UserType>) => {
+    return AuthValidator.LoginSchema.safeParse(loginData);
   };
 }
