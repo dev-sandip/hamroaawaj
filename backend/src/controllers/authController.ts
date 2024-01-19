@@ -30,7 +30,7 @@ class UserAuthController {
       await newUser.save();
 
       // Register cookies
-      // CookieHandler.registerCookies(res, newUser._id.toString());
+      CookieHandler.registerCookies(res, newUser._id.toString());
 
       return ResponseController.HandleSuccessResponse(res, {
         status: 201,
@@ -95,7 +95,7 @@ class UserAuthController {
         data: user,
       });
     } catch (error) {
-        console.log("🚀 ~ UserAuthController ~ Login= ~ error:", error);
+      console.log("🚀 ~ UserAuthController ~ Login= ~ error:", error);
       return ResponseController.Handle500Error(res, error);
     }
   };
