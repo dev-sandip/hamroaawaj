@@ -38,9 +38,8 @@ const routes: RouteType[] = [
   },
   {
     path: "/profile",
-    Component: ProfilePage,
+    Component: ProfilePage, 
   },
-  
 ];
 
 const App = () => {
