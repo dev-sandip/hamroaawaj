@@ -1,6 +1,7 @@
+import AuthHandler from "@/handlers/auth-handler";
 import { GlobalContext } from "@/hooks/use-global-context";
 import { UserType } from "@/types/user.types";
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 
 export interface GlobalContextType {
   user: UserType | null;
@@ -23,6 +24,21 @@ export const GlobalContextProvider = ({
     isLoaded,
     setIsLoaded,
   };
+
+  useEffect(() => {
+    const verifyUser = async () => {
+      const res = await AuthHandler.verify();
+      if (res.success) {
+        setUser(res.data);
+        setIsLoaded(true);
+      }
+    };
+    verifyUser();
+  }, []);
+
+  useEffect(() => {
+    console.log("user changed", user);
+  }, [user]);
 
   return (
     <GlobalContext.Provider value={globalContextValue}>
