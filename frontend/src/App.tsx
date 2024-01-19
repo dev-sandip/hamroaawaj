@@ -5,7 +5,7 @@ import { Suspense, lazy } from "react";
 const LandingPage = lazy(
   () => import("./components/pages/landing/landing-page")
 );
-const AboutPage = lazy(() => import("./components/pages/about/about-page"));
+const SignupPage = lazy(() => import("./components/pages/auth/signup"));
 
 interface RouteType {
   path: string;
@@ -20,8 +20,8 @@ const routes: RouteType[] = [
     Component: LandingPage,
   },
   {
-    path: "/about",
-    Component: AboutPage,
+    path: "/signup",
+    Component: SignupPage,
   },
 ];
 
