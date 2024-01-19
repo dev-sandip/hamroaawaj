@@ -8,6 +8,7 @@ const LandingPage = lazy(
 const SignupPage = lazy(() => import("./components/pages/auth/signup"));
 const LoginPage = lazy(() => import("./components/pages/auth/login"));
 const ReportPage = lazy(() => import("./components/pages/report/report-page"));
+const ProfilePage = lazy(() => import("./components/pages/profile/profile"));
 
 interface RouteType {
   path: string;
@@ -34,6 +35,10 @@ const routes: RouteType[] = [
   {
     path: "/report",
     Component: ReportPage,
+  },
+  {
+    path: "/profile",
+    Component: ProfilePage,
   },
 ];
 

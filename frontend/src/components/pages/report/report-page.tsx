@@ -100,8 +100,16 @@ const ReportPage = () => {
   };
 
   const handleReset = () => {
-    setReportData({} as ReportType);
+    setReportData({
+      title: "",
+      text: "",
+      files: [],
+      location: "",
+      tag: [],
+      userId: user?._id || "",
+    });
     setLocation("");
+    setTag("");
   };
 
   return (
