@@ -5,7 +5,7 @@ const homeRouter = Router();
 homeRouter.get("/", (req: Request, res: Response) => {
     res.status(200).json({
         status: 200,
-        message: "Welcome to the Backend of Hackthon!",
+        message: "Welcome to the Backend of HamroAwaz!",
         data: {
             github: "git-sandip",
             name: "Sandip Sapkota",

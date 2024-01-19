@@ -7,11 +7,14 @@ import ReportValidator, { ReportType } from "@/validators/report-validators";
 import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import { useGlobalContext } from "@/hooks/use-global-context";
+import ReportHandler from "@/handlers/report-handler";
+import { useNavigate } from "react-router-dom";
 
 const ReportPage = () => {
   const [reportData, setReportData] = useState({} as ReportType);
   const [location, setLocation] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
   const { user } = useGlobalContext();
   const [tag, setTag] = useState("");
   const handleChange = (e: any) => {
@@ -79,12 +82,20 @@ const ReportPage = () => {
     console.log(reportData);
     const data = ReportValidator.validateReport({
       ...reportData,
-      userId: user?._id || "abcd",
+      userId: user?._id,
     });
     console.log(data);
     if (!data.success) {
       toast.error("Please fill all the fields");
       return;
+    }
+    const res = await ReportHandler.createReport(data.data);
+    if (res.success) {
+      toast.success("Report created successfully");
+      navigate("/");
+      handleReset();
+    } else {
+      toast.error("Something went wrong");
     }
   };
 
