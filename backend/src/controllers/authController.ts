@@ -122,5 +122,27 @@ class UserAuthController {
       return ResponseController.Handle500Error(res, error);
     }
   };
+  /**
+    * Logout user.
+    * @param req - The request object.
+    * @param res - The response object.
+    * @returns A success response with status 200 and an empty data object.
+    */
+  public static logout = async (req: Request, res: Response) => {
+    try {
+      //logout user
+      CookieHandler.clearCookies(res);
+      return ResponseController.HandleSuccessResponse(res, {
+        status: 200,
+        message: "Logout successful!",
+        data: {},
+      });
+    } catch (error) {
+      return ResponseController.Handle500Error(res, error);
+    }
+  };
+
+
+
 }
 export default UserAuthController;
