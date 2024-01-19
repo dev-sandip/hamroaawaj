@@ -1,7 +1,7 @@
 const Profile = () => {
   return (
     <>
-      <div className=" max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <div className=" max-w-sm  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <div className="flex justify-end px-4 pt-4">
           <button
             id="dropdownButton"
@@ -52,9 +52,9 @@ const Profile = () => {
             </ul>
           </div>
         </div>
-        <div className="flex flex-col items-center pb-10">
+        <div className="flex flex-col items-center h-[60vh] border-4 border-red-500 rounded-[20px] pb-10">
           <img
-            className="w-24 h-24 mb-3 rounded-full shadow-lg"
+            className="w-24 h-24 mb-3 rounded-full m-7 shadow-lg"
             src="https://2.img-dpreview.com/files/p/E~C1000x0S4000x4000T1200x1200~articles/3925134721/0266554465.jpeg"
             alt="Bonnie image"
           />
@@ -64,6 +64,13 @@ const Profile = () => {
           <span className="text-sm text-gray-500 dark:text-gray-400">
             Visual Designer
           </span>
+          <div className=" flex space-x-10 h-[7vh] w-auto me-[20vw]">
+            <span className="w-10 ms-[20px]">Rank</span>
+            <img
+              className=" aspect-square w-40 h-40 ms-10 shadow-lg"
+              src="https://static.botsrv2.com/website/img/quriobot_favicon.1727b193.png"
+            />
+          </div>
         </div>
       </div>
     </>
