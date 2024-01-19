@@ -1,12 +1,12 @@
-// import Footer from "../shared/footer/footer";
-// import Navbar from "../shared/navbar/navbar";
+import Footer from "../shared/footer/footer";
+import Navbar from "../shared/navbar/navbar";
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <main className="flex flex-col justify-between h-screen">
-      {/* <Navbar /> */}
+      <Navbar />
       {children}
-      {/* <Footer /> */}
+      <Footer />
     </main>
   );
 };

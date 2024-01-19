@@ -12,6 +12,10 @@ const navItems: NavItemTypes[] = [
     label: "About",
     href: "/about",
   },
+  {
+    label: "/Contact",
+    href: "/contact",
+  },
 ];
 
 export default navItems;

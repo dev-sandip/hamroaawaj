@@ -40,6 +40,7 @@ const routes: RouteType[] = [
     path: "/profile",
     Component: ProfilePage,
   },
+  
 ];
 
 const App = () => {
