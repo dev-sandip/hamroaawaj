@@ -112,6 +112,10 @@ const ReportPage = () => {
     setTag("");
   };
 
+  if (!user) {
+    navigate("/login");
+  }
+
   return (
     <div className="max-w-3xl w-screen h-screen flex flex-col justify-center items-center m-auto gap-6 p-2">
       <div className="flex flex-col gap-3 items-center justify-center rounded-xl h-max">

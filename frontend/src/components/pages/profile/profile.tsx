@@ -1,4 +1,12 @@
+import { useGlobalContext } from "@/hooks/use-global-context";
+import { useNavigate } from "react-router-dom";
+
 const Profile = () => {
+  const navigate = useNavigate();
+  const { user } = useGlobalContext();
+  if (!user) {
+    navigate("/login");
+  }
   return (
     <>
       <div className=" max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
