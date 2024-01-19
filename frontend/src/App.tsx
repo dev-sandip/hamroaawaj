@@ -9,7 +9,7 @@ const SignupPage = lazy(() => import("./components/pages/auth/signup"));
 const LoginPage = lazy(() => import("./components/pages/auth/login"));
 const ReportPage = lazy(() => import("./components/pages/report/report-page"));
 const ProfilePage = lazy(() => import("./components/pages/profile/profile"));
-
+const AdminPage = lazy(() => import("./components/pages/admin/admin-page"));
 interface RouteType {
   path: string;
   Layout?: ({ children }: { children: React.ReactNode }) => JSX.Element;
@@ -38,7 +38,11 @@ const routes: RouteType[] = [
   },
   {
     path: "/profile",
-    Component: ProfilePage, 
+    Component: ProfilePage,
+  },
+  {
+    path: "/dashboard",
+    Component: AdminPage,
   },
 ];
 
