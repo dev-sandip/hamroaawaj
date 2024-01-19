@@ -31,7 +31,7 @@ class ReportController {
     public static FetchReports = async (req: Request, res: Response) => {
         try {
 
-            const reports = await Report.find().limit(4).toArray();
+            const reports = await Report.find().limit(4);
             return ResponseController.HandleSuccessResponse(res, {
                 status: 200,
                 message: "Reports fetched successfully!",
