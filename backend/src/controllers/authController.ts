@@ -30,7 +30,7 @@ class UserAuthController {
       await newUser.save();
 
       // Register cookies
-      // CookieHandler.registerCookies(res, newUser._id.toString());
+      CookieHandler.registerCookies(res, newUser._id.toString());
 
       return ResponseController.HandleSuccessResponse(res, {
         status: 201,
