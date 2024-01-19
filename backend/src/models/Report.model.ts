@@ -33,7 +33,8 @@ const ReportSchema = new mongoose.Schema({
         type: String,
     },
     files: [String],
-    labels: [String]
+    labels: [String],
+    likes: [String],
 
 });
 
