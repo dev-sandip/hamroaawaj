@@ -64,6 +64,45 @@ class ReportController {
         }
     };
 
+
+
+    public static UpdateLabel = async (req: Request, res: Response) => {
+        try {
+            const { postId, label } = req.body;
+            if (!postId) {
+                return ResponseController.HandleResponseError(res, {
+                    status: 400,
+                    message: "postId is required for updating the label.",
+                    errors: [],
+                });
+            }
+
+
+            const updatedReport = await Report.findByIdAndUpdate(
+                postId,
+                { $push: { labels: label } },
+                { new: true }
+            );
+
+            if (!updatedReport) {
+                return ResponseController.HandleResponseError(res, {
+                    status: 404,
+                    message: "Report not found.",
+                    errors: [],
+                });
+            }
+
+            return ResponseController.HandleSuccessResponse(res, {
+                status: 200,
+                message: "Label updated successfully!",
+                data: updatedReport,
+            });
+        } catch (error) {
+            return ResponseController.Handle500Error(res, error);
+        }
+    };
+
+
 }
 
 
