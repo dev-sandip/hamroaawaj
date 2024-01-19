@@ -23,6 +23,7 @@ const routes: RouteType[] = [
     path: "/signup",
     Component: SignupPage,
   },
+  
 ];
 
 const App = () => {

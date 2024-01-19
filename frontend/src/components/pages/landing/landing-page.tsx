@@ -1,4 +1,16 @@
+import Card from "../card/card";
+import Profile from "../profile/profile";
+import Contributors from "../top-contributors/contributors";
+
 const LandingPage = () => {
-  return <h1>Hello World</h1>;
+  return (
+    <>
+      <Profile />
+      <Card />
+      <Card />
+      <Contributors />
+    </>
+  );
 };
+
 export default LandingPage;
