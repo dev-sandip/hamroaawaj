@@ -9,4 +9,7 @@ export default class AuthHandler {
   public static login = (loginData: LoginDataType): Promise<any> => {
     return fetchUrl("/auth/login", "POST", loginData);
   };
+  public static verify = (): Promise<any> => {
+    return fetchUrl("/auth/verify", "GET");
+  };
 }

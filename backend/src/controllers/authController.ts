@@ -95,7 +95,30 @@ class UserAuthController {
         data: user,
       });
     } catch (error) {
-        console.log("🚀 ~ UserAuthController ~ Login= ~ error:", error);
+      console.log("🚀 ~ UserAuthController ~ Login= ~ error:", error);
+      return ResponseController.Handle500Error(res, error);
+    }
+  };
+
+  public static verifyUser = async (req: Request, res: Response) => {
+    try {
+      // Check if user exists
+      // res.locals.jwtData.id is the user id from the jwt token returned by the auth middleware called verifyToken
+      const user = await User.findById(res.locals.jwtData.id);
+      if (!user) {
+        return ResponseController.HandleResponseError(res, {
+          status: 404,
+          message: "User not found!",
+          errors: [],
+        });
+      }
+
+      return ResponseController.HandleSuccessResponse(res, {
+        status: 200,
+        message: "User verified!",
+        data: user,
+      });
+    } catch (error) {
       return ResponseController.Handle500Error(res, error);
     }
   };
