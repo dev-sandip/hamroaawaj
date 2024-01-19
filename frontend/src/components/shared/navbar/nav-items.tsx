@@ -13,7 +13,7 @@ const navItems: NavItemTypes[] = [
     href: "/about",
   },
   {
-    label: "/Contact",
+    label: "Contact",
     href: "/contact",
   },
 ];
