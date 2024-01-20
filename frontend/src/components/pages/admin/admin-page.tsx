@@ -3,6 +3,7 @@ import UserAdminPage from "./user-admin-page";
 import ReportAdminPage from "./report-admin-page";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import CompletReportPage from "./complete-report-page";
 
 const tabs = ["reports", "users", "complete"];
 
@@ -32,6 +33,9 @@ export default function AdminPage() {
         </TabsContent>
         <TabsContent value="reports" className="mt-6">
           <ReportAdminPage />
+        </TabsContent>
+        <TabsContent value="complete" className="mt-6">
+          <CompletReportPage />
         </TabsContent>
       </Tabs>
       {/* </div> */}
