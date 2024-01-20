@@ -95,7 +95,7 @@ const ReportPage = () => {
       _id: "",
       labels: [],
       upvote: [],
-      downvote: []
+      downvote: [],
     });
     if (res.success) {
       toast.success("Report created successfully");
@@ -125,7 +125,11 @@ const ReportPage = () => {
   }
 
   return (
-    <div className="max-w-3xl w-screen h-screen flex flex-col justify-center items-center m-auto gap-6 p-2">
+    <div
+      className={
+        "max-w-3xl w-screen h-max my-12 px-12 py-8 border-2 border-muted  flex flex-col justify-center items-center m-auto gap-6 bg-gray-50 rounded-xl"
+      }
+    >
       <div className="flex flex-col gap-3 items-center justify-center rounded-xl h-max">
         <h1 className="text-3xl font-extrabold text-center text-foreground">
           Create a New Report
@@ -165,27 +169,31 @@ const ReportPage = () => {
           placeholder="Describe the problem in detail."
           className="h-40"
         />
-        <Combobox
-          placeholder="location"
-          location={location}
-          setLocation={setLocation}
-          arrValues={districts.map((district) => ({
-            label: district,
-            value: district.toLowerCase(),
-          }))}
-        />
-        <Input
-          name="tag"
-          placeholder="tags"
-          value={tag}
-          onChange={(e) => setTag(e.target.value)}
-        />
+        <div className="flex justify-between items-center w-full gap-8">
+          <Combobox
+            placeholder="location"
+            location={location}
+            setLocation={setLocation}
+            arrValues={districts.map((district) => ({
+              label: district,
+              value: district.toLowerCase(),
+            }))}
+          />
+          <Input
+            name="tag"
+            placeholder="tags"
+            value={tag}
+            onChange={(e) => setTag(e.target.value)}
+          />
+        </div>
       </form>
       <div className="flex gap-4">
-        <Button onClick={handleReset} variant="secondary">
+        <Button onClick={handleReset} variant="secondary" className="px-12">
           Discard
         </Button>
-        <Button onClick={handleSubmit}>Submit</Button>
+        <Button onClick={handleSubmit} className="px-12">
+          Submit
+        </Button>
       </div>
     </div>
   );
