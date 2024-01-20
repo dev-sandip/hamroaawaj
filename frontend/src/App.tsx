@@ -57,6 +57,10 @@ const routes: RouteType[] = [
     Component: AdminPage,
   },
   {
+    path: "/dashboard/:q",
+    Component: AdminPage,
+  },
+  {
     path: "/dashboard/report/:reportId",
     Component: IndividualReportPage,
   },
