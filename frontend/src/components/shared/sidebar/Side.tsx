@@ -8,9 +8,12 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { RxAvatar } from "react-icons/rx";
 import { useGlobalContext } from "@/hooks/use-global-context";
+import AuthHandler from "@/handlers/auth-handler";
+import toast from "react-hot-toast";
+import { UserType } from "@/types/user.types";
 
 export default function Side() {
-  const { user } = useGlobalContext();
+  const { user, setUser } = useGlobalContext();
   const navItems = [
     {
       label: "Home",
@@ -38,6 +41,17 @@ export default function Side() {
       Icon: GoAlert,
     },
   ];
+
+  const handleLogout = async () => {
+    const res = await AuthHandler.logout();
+    if (res.success) {
+      toast.success("Logout Successful");
+      setUser({} as UserType);
+    } else {
+      toast.error("Logout Failed, Try Again");
+    }
+  };
+
   return (
     <div>
       <aside className="flex h-[calc(100vh-72px)] w-64 flex-col overflow-y-auto border-r bg-white px-5 py-8">
@@ -59,7 +73,11 @@ export default function Side() {
               ))}
             </div>
             {user && (
-              <Button variant="secondary" className="w-full justify-start">
+              <Button
+                onClick={handleLogout}
+                variant="secondary"
+                className="w-full justify-start"
+              >
                 <AiOutlineLogout className="text-2xl" />
                 <span className="mx-2 text-lg font-medium">Logout</span>
               </Button>
