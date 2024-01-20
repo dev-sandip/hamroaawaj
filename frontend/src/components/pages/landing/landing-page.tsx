@@ -15,13 +15,13 @@ const LandingPage = () => {
   }, []);
 
   return (
-    <>
-      <div className="flex flex-col gap-4">
+    <div className="w-full h-full mx-auto mt-6">
+      <div className="flex flex-col gap-6 mx-auto items-center justify-center ">
         {posts.map((post) => (
           <PostCard report={post} />
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
