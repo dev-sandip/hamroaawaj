@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { IoCheckmarkDone } from "react-icons/io5";
 import ReportHandler from "@/handlers/report-handler";
 import toast from "react-hot-toast";
+import CommentBox from "./comment-box";
 
 const PostCard = ({ report }: { report: ReportType }) => {
   const [user, setuser] = useState({} as UserType);
@@ -35,6 +36,22 @@ const PostCard = ({ report }: { report: ReportType }) => {
     if (res.success) {
       toast.success("Marked as completed");
     } else {
+      toast.error("Something went wrong");
+    }
+  };
+
+  const handleShare = async () => {
+    if (!navigator.share) {
+      toast.error("Your browser does not support this feature");
+      return;
+    }
+    try {
+      await navigator.share({
+        title: "Report",
+        text: report.text,
+        url: window.location.href,
+      });
+    } catch (err) {
       toast.error("Something went wrong");
     }
   };
@@ -120,15 +137,10 @@ const PostCard = ({ report }: { report: ReportType }) => {
               >
                 <BiDownvote className="w-5 h-5" />
               </Button>
-              <Button
-                variant="ghost"
-                title="Add a comment"
-                className="flex items-center justify-center p-2"
-              >
-                <FaRegComment className="w-5 h-5" />
-              </Button>
+              <CommentBox report={report} />
             </div>
             <Button
+              onClick={handleShare}
               variant="ghost"
               title="Bookmark post"
               className="flex items-center justify-center p-2"

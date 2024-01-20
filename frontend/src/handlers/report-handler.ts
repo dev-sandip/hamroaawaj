@@ -1,6 +1,7 @@
 import { ReportType } from "@/validators/report-validators";
 import { fetchUrl } from "./handler";
 import { ServiceResponseType } from "@/types/handler-response.types";
+import { CommentType } from "@/types/report.types";
 
 export default class ReportHandler {
   public static createReport = (reportData: ReportType): Promise<any> => {
@@ -32,5 +33,16 @@ export default class ReportHandler {
     reportId: string
   ): Promise<ServiceResponseType<ReportType>> => {
     return fetchUrl(`/report/compeleteReport`, "PUT", { reportId: reportId });
+  };
+  public static addComment = (
+    reportId: string,
+    userId: string,
+    comment: string
+  ): Promise<ServiceResponseType<CommentType>> => {
+    return fetchUrl(`/report/comment`, "POST", {
+      reportId,
+      commentText: comment,
+      userId,
+    });
   };
 }
