@@ -12,6 +12,7 @@ import { IoCheckmarkDone } from "react-icons/io5";
 import ReportHandler from "@/handlers/report-handler";
 import toast from "react-hot-toast";
 import CommentBox from "./comment-box";
+import { cn } from "@/lib/utils";
 
 const PostCard = ({ Preport }: { Preport: ReportType }) => {
   const [user, setuser] = useState({} as UserType);
@@ -133,7 +134,12 @@ const PostCard = ({ Preport }: { Preport: ReportType }) => {
                 variant="ghost"
                 type="button"
                 title="Like post"
-                className="flex items-center justify-center gap-2 p-2"
+                className={cn(
+                  "flex items-center justify-center gap-2 p-2",
+                  report.upvote.includes(user._id)
+                    ? "text-red-500"
+                    : "text-coolGray-400"
+                )}
               >
                 <BiUpvote className="w-5 h-5" />
                 <span className="text-lg">{1}</span>
@@ -142,7 +148,12 @@ const PostCard = ({ Preport }: { Preport: ReportType }) => {
                 onClick={() => handleUpVote("downvote")}
                 variant="ghost"
                 title="Add a comment"
-                className="flex items-center justify-center p-2"
+                className={cn(
+                  "flex items-center justify-center p-2",
+                  report.downvote.includes(user._id)
+                    ? "text-red-500"
+                    : "text-coolGray-400"
+                )}
               >
                 <BiDownvote className="w-5 h-5" />
               </Button>
