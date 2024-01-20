@@ -231,7 +231,7 @@ class ReportController {
     }
     public static fetchComments = async (req: Request, res: Response) => {
         try {
-            const { reportId } = req.body;
+            const { reportId } = req.params;
 
             if (!reportId) {
                 return ResponseController.HandleResponseError(res, {
