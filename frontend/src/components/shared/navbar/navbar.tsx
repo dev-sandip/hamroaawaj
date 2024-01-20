@@ -45,7 +45,7 @@ const Navbar = () => {
           </Link>
         ) : (
           <Link to="/profile">
-            <img src={user.profileImg} className="w-10 h-10 rounded-full" />
+            <img src={user.profileImg} className="w-10 h-10 rounded-full origin-center object-cover" />
           </Link>
         )}
       </div>
