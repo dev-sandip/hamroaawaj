@@ -14,7 +14,7 @@ const Navbar = () => {
       )}
     >
       <Link to="/">
-        <img src="logo.png" alt="" className="aspect-square h-16" />
+        <img src="logo.png" alt="" className="aspect-square h-14" />
       </Link>
       <span
         className="text-3xl font-bold text-gray-700"
@@ -25,7 +25,7 @@ const Navbar = () => {
       <div className="flex items-center gap-4">
         {!user?._id ? (
           <Link to="/login">
-            <Button variant="secondary" className="px-6">
+            <Button variant="default" className="px-6">
               Login
             </Button>
           </Link>
