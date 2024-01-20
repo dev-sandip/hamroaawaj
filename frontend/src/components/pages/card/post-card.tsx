@@ -18,6 +18,7 @@ import { motion } from "framer-motion";
 const PostCard = ({ Preport }: { Preport: ReportType }) => {
   const [user, setuser] = useState({} as UserType);
   const [report, setReport] = useState(Preport as ReportType);
+  const [text, setText] = useState(report.text.substring(0, 150) + "...");
   const imgRef = useRef<HTMLImageElement>(null);
   useEffect(() => {
     const fetchUser = async () => {
@@ -90,7 +91,7 @@ const PostCard = ({ Preport }: { Preport: ReportType }) => {
                 <span className="font-medium opacity-70">
                   {" "}
                   from{" "}
-                  {report.location[0].toUpperCase() + report.location.slice(1)}
+                  {report.location[0].toUpperCase() + report.location.slice(1)}.
                   {/* {" "}
                   at{" "}
                   {new Date(report.createdAt).toLocaleDateString(undefined, {
@@ -128,10 +129,27 @@ const PostCard = ({ Preport }: { Preport: ReportType }) => {
         </div>
 
         <div className=" text-xs leading-none text-coolGray-400 p-3 flex flex-col gap-3">
-          <h1 className="text-lg leading-none">{report.title}</h1>
+          <h1 className="text-lg font-semibold leading-none">{report.title}</h1>
 
-          <p className="text-sm leading-none text-muted-foreground">
-            {report.text}
+          <p className="text-sm leading-5 font-medium text-muted-foreground">
+            <span>{text}</span>
+            {text.length === report.text.length ? (
+              <span
+                className="text-foreground cursor-pointer"
+                onClick={() => setText(report.text.substring(0, 150) + "...")}
+              >
+                <br />
+                Show less
+              </span>
+            ) : (
+              <span
+                className="text-foreground cursor-pointer"
+                onClick={() => setText(report.text)}
+              >
+                <br />
+                Show more
+              </span>
+            )}
           </p>
           <span className="flex gap-2">
             {report.tag.map((t) => (

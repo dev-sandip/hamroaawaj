@@ -52,31 +52,27 @@ const routes: RouteType[] = [
   {
     path: "/report",
     Component: ReportPage,
-    isProtected: true,
   },
   {
     path: "/profile",
     Component: ProfilePage,
-    isProtected: true,
   },
   {
     path: "/dashboard",
     Component: AdminPage,
-    isProtected: true,
   },
   {
     path: "/dashboard/reports/:reportId",
     Component: IndividualReportPage,
-    isProtected: true,
   },
   {
     path: "/dashboard/users/:userId",
-    isProtected: true,
+
     Component: IndividualUserPage,
   },
   {
     path: "/dashboard/:q",
-    isProtected: true,
+
     Component: AdminPage,
   },
   {
@@ -98,10 +94,9 @@ const routes: RouteType[] = [
 ];
 
 const App = () => {
-  const { user } = useGlobalContext();
   return (
     <Routes>
-      {routes.map(({ path, Layout, Component, noRootLayout, isProtected }) => {
+      {routes.map(({ path, Layout, Component, noRootLayout }) => {
         const CompWithLayout = Layout ? (
           <Layout>
             <Suspense fallback={<div>Loading...</div>}>
@@ -113,10 +108,6 @@ const App = () => {
             <Component />
           </Suspense>
         );
-        if (isProtected && !user?._id) {
-          const navigate = useNavigate();
-          navigate("/login");
-        }
         return (
           <Route
             key={path}
