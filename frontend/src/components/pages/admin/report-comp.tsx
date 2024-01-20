@@ -22,7 +22,7 @@ const ReportComp = ({ report }: { report: ReportType }) => {
         src={report.files[0]}
         className="max-h-40 w-full object-cover"
       />
-      <div className="bg-white w-full p-4">
+      <div className="bg-gray-200 w-full p-4">
         <Link
           to={`/dashboard/reports/${report._id}`}
           className="text-foreground text-2xl font-medium"

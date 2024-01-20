@@ -6,7 +6,7 @@ export default class ReportValidator {
     title: z.string().min(3).max(255),
     location: z.string().min(3).max(255),
     tag: z.array(z.string()),
-    text: z.string().min(3).max(255),
+    text: z.string().min(3),
     files: z.array(z.string()),
     isCompleted: z.boolean().default(false),
   });

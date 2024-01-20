@@ -5,7 +5,7 @@ import { ScrollArea } from "../ui/scroll-area";
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     
-    <main className="flex flex-col justify-between h-screen bg-muted">
+    <main className="flex flex-col justify-between h-screen bg-gray-50">
       <Navbar />
       <div className="flex h- overflow-hidden">
         <Side />
