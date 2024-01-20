@@ -75,4 +75,9 @@ export default class ReportHandler {
   > => {
     return fetchUrl(`/report/notCompletedReports`, "GET");
   };
+  public static getMyReports = (
+    userId: string
+  ): Promise<ServiceResponseType<ReportType[]>> => {
+    return fetchUrl(`/report/userReports/${userId}`, "GET");
+  };
 }

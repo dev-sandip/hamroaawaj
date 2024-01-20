@@ -1,17 +1,31 @@
 import { useGlobalContext } from "@/hooks/use-global-context";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
+import { ReportType } from "@/validators/report-validators";
+import ReportHandler from "@/handlers/report-handler";
+import PostCard from "../card/post-card";
 
 const Profile = () => {
   const navigate = useNavigate();
   const { user } = useGlobalContext();
+  const [userPosts, setUserPosts] = useState([] as ReportType[]);
   useEffect(() => {
     if (!user) {
       navigate("/login");
       console.log("user not logged in");
     }
-  });
+  }, []);
+
+  useEffect(() => {
+    const fetchMyPosts = async () => {
+      const res = await ReportHandler.getMyReports(user?._id as string);
+      if (res.success) {
+        setUserPosts(res.data);
+      }
+    };
+    fetchMyPosts();
+  }, [user]);
 
   return (
     <>
@@ -33,9 +47,15 @@ const Profile = () => {
           src={user?.legaldocImg}
           width="600"
         />
-        {
-          "his posts " //todo
-        }
+
+        {userPosts.length > 0 && (
+          <>
+            <h3 className="text-2xl font-semibold">Your Reports</h3>
+            {userPosts.map((report, index) => {
+              return <PostCard Preport={report} key={index} />;
+            })}
+          </>
+        )}
       </div>
     </>
   );
