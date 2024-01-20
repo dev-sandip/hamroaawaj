@@ -16,15 +16,16 @@ import {
 } from "@/components/ui/popover";
 import { useEffect, useState } from "react";
 
-export function ComboboxDemo({
+export function Combobox({
   location,
   setLocation,
   arrValues,
+  placeholder,
 }: {
   location: string;
   setLocation: React.Dispatch<React.SetStateAction<string>>;
   arrValues: { label: string; value: string }[];
-
+  placeholder: string;
 }) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(location);
@@ -45,14 +46,17 @@ export function ComboboxDemo({
         >
           {value
             ? arrValues.find((district) => district.value === value)?.label
-            : "Select district..."}
+            : `Select ${placeholder}...`}
           <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0">
         <Command>
-          <CommandInput placeholder="Search district..." className="h-9" />
-          <CommandEmpty>No district found.</CommandEmpty>
+          <CommandInput
+            placeholder={`Search ${placeholder}...`}
+            className="h-9"
+          />
+          <CommandEmpty>No {placeholder} found.</CommandEmpty>
           <CommandGroup>
             {arrValues.map((district) => (
               <CommandItem

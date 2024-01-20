@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ComboboxDemo } from "../report/combo-box";
+import { Combobox } from "../report/combo-box";
 import { ReportType } from "@/validators/report-validators";
 import ReportHandler from "@/handlers/report-handler";
 import { useParams } from "react-router-dom";
@@ -97,19 +97,13 @@ const IndividualReportPage = () => {
         </div>
         <div className="flex flex-col gap-4">
           <h3>Add labels here</h3>
-          <ComboboxDemo
-            arrValues={labels}
-            location={tag}
-            setLocation={setTag}
-          />
+          <Combobox placeholder="labels" arrValues={labels} location={tag} setLocation={setTag} />
           {labels && (
             <div className="flex flex-col gap-4">
               <Button variant="outline" onClick={() => setTags([])}>
                 Discard
               </Button>
-              <Button
-              onClick={handleUpdateLabel}
-              >Update</Button>
+              <Button onClick={handleUpdateLabel}>Update</Button>
             </div>
           )}
         </div>

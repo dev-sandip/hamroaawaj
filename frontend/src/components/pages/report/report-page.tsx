@@ -1,7 +1,7 @@
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { FiUploadCloud } from "react-icons/fi";
-import { ComboboxDemo } from "./combo-box";
+import { Combobox } from "./combo-box";
 import { useEffect, useState } from "react";
 import ReportValidator, { ReportType } from "@/validators/report-validators";
 import toast from "react-hot-toast";
@@ -173,7 +173,8 @@ const ReportPage = () => {
           placeholder="Describe the problem in detail."
           className="h-40"
         />
-        <ComboboxDemo
+        <Combobox
+          placeholder="location"
           location={location}
           setLocation={setLocation}
           arrValues={districts}
