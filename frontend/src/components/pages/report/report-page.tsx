@@ -94,6 +94,8 @@ const ReportPage = () => {
       ...data.data,
       _id: "",
       labels: [],
+      upvote: [],
+      downvote: []
     });
     if (res.success) {
       toast.success("Report created successfully");
