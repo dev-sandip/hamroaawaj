@@ -9,7 +9,7 @@ import ReportModel from "../models/Report.model";
 class ReportController {
     public static ReportPost = async (req: Request, res: Response) => {
         try {
-            const { userId, title, location, tag, text, files } = req.body;
+            const { userId, title, location, tag, text, files, labels } = req.body;
             console.log(req.body);
             const newReport = new Report({
                 userId,
@@ -18,6 +18,7 @@ class ReportController {
                 tag,
                 text,
                 files,
+                labels
             });
 
             await newReport.save();
@@ -318,7 +319,8 @@ class ReportController {
 
     public static searchByFilter = async (req: Request, res: Response) => {
         try {
-            const { district, label } = req.params;
+            const { district, label } = req.query;
+            console.log("🚀 ~ ReportController ~ searchByFilter= ~ district, label:", district, label);
 
             if (!district && !label) {
                 return ResponseController.HandleResponseError(res, {
@@ -328,7 +330,7 @@ class ReportController {
                 });
             }
 
-            let query = {};
+            const query = {};
 
             if (district) {
                 query['location'] = district;
@@ -339,6 +341,15 @@ class ReportController {
             }
 
             const searchResults = await ReportModel.find(query);
+            console.log("🚀 ~ ReportController ~ searchByFilter= ~ searchResults:", searchResults);
+
+            if (searchResults.length === 0) {
+                return ResponseController.HandleSuccessResponse(res, {
+                    status: 200,
+                    message: "No matching reports found.",
+                    data: [],
+                });
+            }
 
             return ResponseController.HandleSuccessResponse(res, {
                 status: 200,
@@ -349,6 +360,7 @@ class ReportController {
             return ResponseController.Handle500Error(res, error);
         }
     };
+
 
 
 }
