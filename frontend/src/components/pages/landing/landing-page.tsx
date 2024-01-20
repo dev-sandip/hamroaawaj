@@ -7,6 +7,7 @@ import { FilterIcon } from "lucide-react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Combobox } from "../report/combo-box";
 import districts from "@/assets/constants/district.json";
+import toast from "react-hot-toast";
 
 const labels = [
   {
@@ -37,15 +38,21 @@ const LandingPage = () => {
   }, []);
 
   const handleUpdateFilter = async () => {
-    console.log(district, label);
+    const res = await ReportHandler.getFilteredReports(district, label);
+    if (!res.success) return toast.error("Something went wrong");
+    setPosts(res.data);
   };
 
   return (
     <div className="w-full h-full mx-auto mt-6">
       <div className="flex flex-col gap-6 mx-auto items-center justify-center ">
-        {posts.map((post) => (
-          <PostCard Preport={post} />
-        ))}
+        {posts.length > 0 ? (
+          posts.map((post) => <PostCard Preport={post} />)
+        ) : (
+          <div className="text-2xl font-bold text-center text-gray-700 p-6">
+            No Reports Found
+          </div>
+        )}
       </div>
 
       <Dialog>
