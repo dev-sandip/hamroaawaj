@@ -24,12 +24,17 @@ const ReportSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    isCompleted: {
+        type: Boolean,
+        default: false,
+    },
     tag: [String],
     text: {
         type: String,
     },
     files: [String],
-    labels: [String]
+    labels: [String],
+    likes: [String],
 
 });
 

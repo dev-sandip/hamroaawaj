@@ -11,12 +11,7 @@ const UserSchema = new mongoose.Schema({
         min: 3,
         max: 40,
     },
-    username: {
-        type: String,
-        default: "user_name",
-        min: 3,
-        max: 40,
-    },
+
     email: {
         type: String,
         required: true,

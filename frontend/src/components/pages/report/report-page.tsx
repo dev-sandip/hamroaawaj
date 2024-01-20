@@ -10,6 +10,17 @@ import { useGlobalContext } from "@/hooks/use-global-context";
 import ReportHandler from "@/handlers/report-handler";
 import { useNavigate } from "react-router-dom";
 
+const districts = [
+  {
+    label: "Kathmandu",
+    value: "kathmandu",
+  },
+  {
+    label: "Lalitpur",
+    value: "lalitpur",
+  },
+];
+
 const ReportPage = () => {
   const [reportData, setReportData] = useState({} as ReportType);
   const [location, setLocation] = useState("");
@@ -89,7 +100,7 @@ const ReportPage = () => {
       toast.error("Please fill all the fields");
       return;
     }
-    const res = await ReportHandler.createReport(data.data);
+    const res = await ReportHandler.createReport({ ...reportData, _id: "" });
     if (res.success) {
       toast.success("Report created successfully");
       navigate("/");
@@ -100,14 +111,15 @@ const ReportPage = () => {
   };
 
   const handleReset = () => {
-    setReportData({
+    setReportData((prev) => ({
+      ...prev,
       title: "",
       text: "",
       files: [],
       location: "",
       tag: [],
       userId: user?._id || "",
-    });
+    }));
     setLocation("");
     setTag("");
   };
@@ -157,7 +169,11 @@ const ReportPage = () => {
           placeholder="Describe the problem in detail."
           className="h-40"
         />
-        <ComboboxDemo location={location} setLocation={setLocation} />
+        <ComboboxDemo
+          location={location}
+          setLocation={setLocation}
+          arrValues={districts}
+        />
         <Input
           name="tag"
           placeholder="tags"
