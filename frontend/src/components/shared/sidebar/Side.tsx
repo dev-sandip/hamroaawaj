@@ -80,7 +80,7 @@ export default function Side() {
       transition={{ duration: 0.5 }}
       className={cn(shadows.smm)}
     >
-      <aside className="flex-1 relative w-64 h-[calc(100vh-100px)] flex-col flex overflow-y-auto border-r bg-muted px-6 py-8">
+      <aside className="flex-1 relative w-64 h-[calc(100vh-80px)] flex-col flex overflow-y-auto border-r bg-muted px-6 py-8">
         <div className="mt-6 flex flex-1 flex-col justify-between flex-grow">
           <nav className="-mx-3 space-y-6  flex flex-col justify-between flex-grow">
             <div className="space-y-3 flex-grow">
