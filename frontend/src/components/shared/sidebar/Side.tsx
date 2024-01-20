@@ -1,6 +1,6 @@
 import { RxDashboard } from "react-icons/rx";
 import { IoHomeOutline } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { CiCirclePlus } from "react-icons/ci";
 import { GoAlert } from "react-icons/go";
 import { AiOutlineLogout } from "react-icons/ai";
@@ -41,6 +41,7 @@ export default function Side() {
       Icon: GoAlert,
     },
   ];
+  const { pathname } = useLocation();
 
   const handleLogout = async () => {
     const res = await AuthHandler.logout();
@@ -63,7 +64,10 @@ export default function Side() {
                   key={index}
                   className={cn(
                     "transform items-center rounded-lg px-3 py-2 text-muted-foreground transition-colors duration-300 hover:text-foreground hover:text-gray-700 flex gap-4 justify-start",
-                    item.href === "/emergency" && "text-destructive"
+                    item.href === "/emergency" && "text-destructive",
+                    item.href === pathname
+                      ? "underline underline-offset-2"
+                      : ""
                   )}
                   to={item.href}
                 >

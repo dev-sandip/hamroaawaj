@@ -29,7 +29,7 @@ const Navbar = () => {
             key={index}
             className={cn(
               "hover:text-primary",
-              pathname === item.href ? "text-primary" : ""
+              pathname === item.href ? "text-primary underline underline-offset-2" : ""
             )}
           >
             <Link to={item.href}>{item.label}</Link>
