@@ -142,7 +142,9 @@ const PostCard = ({ Preport }: { Preport: ReportType }) => {
                 )}
               >
                 <BiUpvote className="w-5 h-5" />
-                <span className="text-lg">{1}</span>
+                <span className="text-lg">
+                  {report.upvote.length - report.downvote.length}
+                </span>
               </Button>
               <Button
                 onClick={() => handleUpVote("downvote")}
