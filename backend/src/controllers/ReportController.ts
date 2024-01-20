@@ -423,16 +423,9 @@ class ReportController {
 
     public static rankUsers = async (req: Request, res: Response) => {
         try {
-            // Fetch users
             const users = await UserModel.find();
-
-            // Fetch reports
             const reports = await Report.find();
-
-            // Create a map to store upvote counts
             const upvoteCounts: Map<string, number> = new Map();
-
-            // Count upvotes
             reports.forEach((report) => {
                 report.upvote.forEach((upvote) => {
                     const userIdString = upvote.toString();
@@ -440,7 +433,6 @@ class ReportController {
                 });
             });
 
-            // Sort users based on upvote counts
             const rankedUsers = users.sort((a, b) => {
                 const upvoteDiff = (upvoteCounts.get(b._id.toString()) || 0) - (upvoteCounts.get(a._id.toString()) || 0);
                 return upvoteDiff !== 0 ? upvoteDiff : a._id.toString().localeCompare(b._id.toString());
