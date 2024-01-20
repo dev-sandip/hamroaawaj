@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const UserComp = ({ user }: { user: Partial<UserType> }) => {
   return (
     <Link
-      to={`user/${user._id}` || ""}
+      to={`/dashboard/users/${user._id}` || ""}
       className="flex items-center gap-4 p-2 hover:bg-muted rounded-lg"
     >
       <img className="w-10 h-10 rounded-full" src={user.profileImg} alt="" />

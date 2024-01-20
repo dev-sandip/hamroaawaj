@@ -3,7 +3,6 @@ import { UserType } from "@/types/user.types";
 import { ReportType } from "@/validators/report-validators";
 import { useEffect, useRef, useState } from "react";
 import { BiUpvote } from "react-icons/bi";
-import { FaRegComment } from "react-icons/fa";
 import { PiShareFatThin } from "react-icons/pi";
 import { BiDownvote } from "react-icons/bi";
 import AuthHandler from "@/handlers/auth-handler";
@@ -142,7 +141,9 @@ const PostCard = ({ Preport }: { Preport: ReportType }) => {
                 )}
               >
                 <BiUpvote className="w-5 h-5" />
-                <span className="text-lg">{1}</span>
+                <span className="text-lg">
+                  {report.upvote.length - report.downvote.length}
+                </span>
               </Button>
               <Button
                 onClick={() => handleUpVote("downvote")}

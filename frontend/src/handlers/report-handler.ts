@@ -61,6 +61,14 @@ export default class ReportHandler {
       userId,
     });
   };
+  public static getFilteredReports = (
+    district: string,
+    label: string
+  ): Promise<ServiceResponseType<ReportType[]>> => {
+    return fetchUrl(
+      `/report/searchByFilter?district=${district}&label=${label}`,
+      "GET"
+    );
 
   public static getNotCompletedReports = (): Promise<
     ServiceResponseType<ReportType[]>
