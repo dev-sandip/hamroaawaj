@@ -5,6 +5,12 @@ import { Textarea } from "@/components/ui/textarea";
 import toast from "react-hot-toast";
 import { motion } from "framer-motion";
 const Feedback = () => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    toast.success("Thank you for your feedback!");
+    e.currentTarget.reset(); // Reset the form
+  };
+
   return (
     <>
       <motion.form
@@ -12,6 +18,7 @@ const Feedback = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.1 }}
         className="max-w-md mx-auto mt-20 p-6 bg-white border rounded-lg shadow-lg"
+        onSubmit={handleSubmit}
       >
         <h2 className="text-2xl font-bold mb-6">Feedback Form</h2>
         <div className="mb-4">
@@ -30,14 +37,7 @@ const Feedback = () => {
             placeholder="Enter your feedback"
           ></Textarea>
         </div>
-        <Button
-          onClick={(e) => {
-            e.preventDefault();
-            toast.success("Thank you for your feedback!");
-          }}
-          className="w-full"
-          type="submit"
-        >
+        <Button className="w-full" type="submit">
           Submit
         </Button>
       </motion.form>
