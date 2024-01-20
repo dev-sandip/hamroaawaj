@@ -3,7 +3,6 @@ import { UserType } from "@/types/user.types";
 import { ReportType } from "@/validators/report-validators";
 import { useEffect, useRef, useState } from "react";
 import { BiUpvote } from "react-icons/bi";
-import { FaRegComment } from "react-icons/fa";
 import { PiShareFatThin } from "react-icons/pi";
 import { BiDownvote } from "react-icons/bi";
 import AuthHandler from "@/handlers/auth-handler";
