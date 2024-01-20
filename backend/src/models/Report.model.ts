@@ -34,7 +34,8 @@ const ReportSchema = new mongoose.Schema({
     },
     files: [String],
     labels: [String],
-    likes: [String],
+    upvote: [String],
+    downvote: [String],
 
 });
 
