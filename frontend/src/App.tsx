@@ -10,6 +10,8 @@ const LoginPage = lazy(() => import("./components/pages/auth/login"));
 const ReportPage = lazy(() => import("./components/pages/report/report-page"));
 const ProfilePage = lazy(() => import("./components/pages/profile/profile"));
 const AdminPage = lazy(() => import("./components/pages/admin/admin-page"));
+const AboutPage = lazy(() => import("./components/pages/about/about-page"));
+const FeedbackPage = lazy(() => import("./components/pages/feedback/feedback"));
 const IndividualReportPage = lazy(
   () => import("./components/pages/admin/individual-report-page")
 );
@@ -55,6 +57,10 @@ const routes: RouteType[] = [
     Component: AdminPage,
   },
   {
+    path: "/dashboard/:q",
+    Component: AdminPage,
+  },
+  {
     path: "/dashboard/report/:reportId",
     Component: IndividualReportPage,
   },
@@ -65,6 +71,14 @@ const routes: RouteType[] = [
   {
     path: "/emergency",
     Component: EmergencyPage,
+  },
+  {
+    path: "/about",
+    Component: AboutPage,
+  },
+  {
+    path: "/feedback",
+    Component: FeedbackPage,
   },
 ];
 

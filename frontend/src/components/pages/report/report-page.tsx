@@ -1,7 +1,7 @@
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { FiUploadCloud } from "react-icons/fi";
-import { ComboboxDemo } from "./combo-box";
+import { Combobox } from "./combo-box";
 import { useEffect, useState } from "react";
 import ReportValidator, { ReportType } from "@/validators/report-validators";
 import toast from "react-hot-toast";
@@ -9,17 +9,7 @@ import { Button } from "@/components/ui/button";
 import { useGlobalContext } from "@/hooks/use-global-context";
 import ReportHandler from "@/handlers/report-handler";
 import { useNavigate } from "react-router-dom";
-
-const districts = [
-  {
-    label: "Kathmandu",
-    value: "kathmandu",
-  },
-  {
-    label: "Lalitpur",
-    value: "lalitpur",
-  },
-];
+import districts from "@/assets/constants/district.json";
 
 const ReportPage = () => {
   const [reportData, setReportData] = useState({} as ReportType);
@@ -173,10 +163,14 @@ const ReportPage = () => {
           placeholder="Describe the problem in detail."
           className="h-40"
         />
-        <ComboboxDemo
+        <Combobox
+          placeholder="location"
           location={location}
           setLocation={setLocation}
-          arrValues={districts}
+          arrValues={districts.map((district) => ({
+            label: district,
+            value: district.toLowerCase(),
+          }))}
         />
         <Input
           name="tag"

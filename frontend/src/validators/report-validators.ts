@@ -19,4 +19,6 @@ export default class ReportValidator {
 export type ReportType = z.infer<typeof ReportValidator.ReportSchema> & {
   _id: string;
   labels: string[];
+  upvote: string[];
+  downvote: string[];
 };
