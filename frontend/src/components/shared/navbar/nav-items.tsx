@@ -16,6 +16,10 @@ const navItems: NavItemTypes[] = [
     label: "Feedback",
     href: "/feedback",
   },
+  {
+    label: "Top Contributors",
+    href: "/top-contributors",
+  },
 ];
 
 export default navItems;

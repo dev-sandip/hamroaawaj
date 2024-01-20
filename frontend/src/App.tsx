@@ -21,6 +21,9 @@ const IndividualUserPage = lazy(
 const EmergencyPage = lazy(
   () => import("./components/pages/emergency/emergency-page")
 );
+const TopContributorsPage = lazy(
+  () => import("./components/pages/contributors/top-contributors")
+);
 
 interface RouteType {
   path: string;
@@ -79,6 +82,10 @@ const routes: RouteType[] = [
   {
     path: "/feedback",
     Component: FeedbackPage,
+  },
+  {
+    path: "top-contributors",
+    Component: TopContributorsPage,
   },
 ];
 
