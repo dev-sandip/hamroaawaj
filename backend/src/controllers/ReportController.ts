@@ -241,6 +241,7 @@ class ReportController {
                 });
             }
 
+
             const comments = await CommentModel.find({ reportId });
 
             if (!comments || comments.length === 0) {
@@ -315,6 +316,26 @@ class ReportController {
     };
 
 
+
+            const comments = await CommentModel.find({ reportId });
+
+            if (!comments || comments.length === 0) {
+                return ResponseController.HandleResponseError(res, {
+                    status: 404,
+                    message: "Comments not found!",
+                    errors: [],
+                });
+            }
+
+            return ResponseController.HandleSuccessResponse(res, {
+                status: 200,
+                message: "Comments fetched successfully!",
+                data: comments,
+            });
+        } catch (error) {
+            return ResponseController.Handle500Error(res, error);
+        }
+    };
 
 }
 
