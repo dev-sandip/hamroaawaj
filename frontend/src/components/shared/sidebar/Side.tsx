@@ -54,7 +54,7 @@ export default function Side() {
 
   return (
     <div>
-      <aside className="flex-1 w-64 flex-col overflow-y-auto border-r bg-white px-5 py-8">
+      <aside className="flex-1 w-64 h-[calc(100vh-72px)] flex-col overflow-y-auto border-r bg-white px-5 py-8">
         <div className="mt-6 flex flex-1 flex-col justify-between">
           <nav className="-mx-3 space-y-6  flex flex-col justify-between">
             <div className="space-y-3 ">
