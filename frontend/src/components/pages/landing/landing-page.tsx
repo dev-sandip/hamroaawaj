@@ -31,7 +31,7 @@ const LandingPage = () => {
   };
 
   return (
-    <div className="w-full h-full mt-6 mx-20 flex justify-evenly items-center gap-12">
+    <div className="w-full h-full mt-14 mx-8 lg:mx-20 flex justify-evenly items-center gap-12">
       <div className="flex flex-col gap-6 items-center justify-center ">
         {posts.length > 0 ? (
           posts.map((post) => <PostCard Preport={post} />)
