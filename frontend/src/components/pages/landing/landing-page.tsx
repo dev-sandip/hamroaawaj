@@ -12,8 +12,37 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Combobox } from "../report/combo-box";
+
+const districts = [
+  {
+    label: "Kathmandu",
+    value: "kathmandu",
+  },
+  {
+    label: "Lalitpur",
+    value: "lalitpur",
+  },
+];
+
+const labels = [
+  {
+    label: "Pending",
+    value: "pending",
+  },
+  // {
+  //   label: "In Progress",
+  //   value: "in-progress",
+  // },
+  {
+    label: "Completed",
+    value: "completed",
+  },
+];
 
 const LandingPage = () => {
+  const [district, setDistrict] = useState("");
+  const [label, setLabel] = useState("");
   const [posts, setPosts] = useState([] as ReportType[]);
 
   useEffect(() => {
@@ -23,6 +52,10 @@ const LandingPage = () => {
     };
     fetchPosts();
   }, []);
+
+  const handleUpdateFilter = async () => {
+    console.log(district, label);
+  };
 
   return (
     <div className="w-full h-full mx-auto mt-6">
@@ -38,8 +71,29 @@ const LandingPage = () => {
             <FilterIcon />
           </Button>
         </DialogTrigger>
-        <DialogContent>
-          hwllo world
+        <DialogContent className="flex flex-col gap-3 ic justify-center">
+          <h1 className="text-2xl font-bold text-center text-gray-700 p-6">
+            Apply Filters
+          </h1>
+          <Combobox
+            placeholder="district"
+            arrValues={districts}
+            location={district}
+            setLocation={setDistrict}
+          />
+          <Combobox
+            placeholder="label"
+            arrValues={labels}
+            location={label}
+            setLocation={setLabel}
+          />
+          <Button
+            variant="secondary"
+            className="w-1/2 mx-auto"
+            onClick={handleUpdateFilter}
+          >
+            Apply
+          </Button>
         </DialogContent>
       </Dialog>
     </div>
