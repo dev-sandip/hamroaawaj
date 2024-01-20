@@ -9,17 +9,7 @@ import { Button } from "@/components/ui/button";
 import { useGlobalContext } from "@/hooks/use-global-context";
 import ReportHandler from "@/handlers/report-handler";
 import { useNavigate } from "react-router-dom";
-
-const districts = [
-  {
-    label: "Kathmandu",
-    value: "kathmandu",
-  },
-  {
-    label: "Lalitpur",
-    value: "lalitpur",
-  },
-];
+import districts from "@/assets/constants/district.json";
 
 const ReportPage = () => {
   const [reportData, setReportData] = useState({} as ReportType);
@@ -177,7 +167,10 @@ const ReportPage = () => {
           placeholder="location"
           location={location}
           setLocation={setLocation}
-          arrValues={districts}
+          arrValues={districts.map((district) => ({
+            label: district,
+            value: district.toLowerCase(),
+          }))}
         />
         <Input
           name="tag"

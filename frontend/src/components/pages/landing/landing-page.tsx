@@ -4,26 +4,9 @@ import { ReportType } from "@/validators/report-validators";
 import ReportHandler from "@/handlers/report-handler";
 import { Button } from "@/components/ui/button";
 import { FilterIcon } from "lucide-react";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Combobox } from "../report/combo-box";
-
-const districts = [
-  {
-    label: "Kathmandu",
-    value: "kathmandu",
-  },
-  {
-    label: "Lalitpur",
-    value: "lalitpur",
-  },
-];
+import districts from "@/assets/constants/district.json";
 
 const labels = [
   {
@@ -77,7 +60,10 @@ const LandingPage = () => {
           </h1>
           <Combobox
             placeholder="district"
-            arrValues={districts}
+            arrValues={districts.map((district) => ({
+              label: district,
+              value: district.toLowerCase(),
+            }))}
             location={district}
             setLocation={setDistrict}
           />
