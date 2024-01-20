@@ -10,7 +10,7 @@ import { useGlobalContext } from "@/hooks/use-global-context";
 import ReportHandler from "@/handlers/report-handler";
 import { useNavigate } from "react-router-dom";
 import districts from "@/assets/constants/district.json";
-
+import { motion } from "framer-motion";
 const ReportPage = () => {
   const [reportData, setReportData] = useState({} as ReportType);
   const [location, setLocation] = useState("");
@@ -96,6 +96,7 @@ const ReportPage = () => {
       labels: [],
       upvote: [],
       downvote: [],
+      createdAt: "",
     });
     if (res.success) {
       toast.success("Report created successfully");
@@ -125,9 +126,12 @@ const ReportPage = () => {
   }
 
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, y: 100 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
       className={
-        "max-w-3xl w-screen h-max my-12 px-12 py-8 border-2 border-muted  flex flex-col justify-center items-center m-auto gap-6 bg-gray-50 rounded-xl"
+        "max-w-3xl w-screen h-max my-12 px-12 py-8 border-2 border-muted-foreground  flex flex-col justify-center items-center m-auto gap-6 bg-gray-50 rounded-xl"
       }
     >
       <div className="flex flex-col gap-3 items-center justify-center rounded-xl h-max">
@@ -195,7 +199,7 @@ const ReportPage = () => {
           Submit
         </Button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 export default ReportPage;
