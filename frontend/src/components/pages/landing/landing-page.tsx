@@ -8,21 +8,8 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Combobox } from "../report/combo-box";
 import districts from "@/assets/constants/district.json";
 import toast from "react-hot-toast";
-
-const labels = [
-  {
-    label: "Pending",
-    value: "pending",
-  },
-  // {
-  //   label: "In Progress",
-  //   value: "in-progress",
-  // },
-  {
-    label: "Completed",
-    value: "completed",
-  },
-];
+import Contributors from "../top-contributors/contributors";
+import labels from "@/assets/constants/labels.json";
 
 const LandingPage = () => {
   const [district, setDistrict] = useState("");
@@ -44,8 +31,8 @@ const LandingPage = () => {
   };
 
   return (
-    <div className="w-full h-full mx-auto mt-6">
-      <div className="flex flex-col gap-6 mx-auto items-center justify-center ">
+    <div className="w-full h-full mt-6 mx-20 flex justify-between items-center gap-12">
+      <div className="flex flex-col gap-6 items-center justify-center ">
         {posts.length > 0 ? (
           posts.map((post) => <PostCard Preport={post} />)
         ) : (
@@ -54,6 +41,7 @@ const LandingPage = () => {
           </div>
         )}
       </div>
+      <Contributors />
 
       <Dialog>
         {/* //todo not working propperly */}
@@ -77,7 +65,10 @@ const LandingPage = () => {
           />
           <Combobox
             placeholder="label"
-            arrValues={labels}
+            arrValues={labels.map((v) => ({
+              label: v,
+              value: v.toLowerCase(),
+            }))}
             location={label}
             setLocation={setLabel}
           />
