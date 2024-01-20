@@ -15,4 +15,5 @@ ReportRouter.post("/vote", ReportController.vote);
 ReportRouter.get("/searchByFilter", ReportController.searchByFilter);
 ReportRouter.get("/notCompletedReports", ReportController.notCompletedReports);
 ReportRouter.get("/userReports/:userId", ReportController.getUserPersonalReports);
+ReportRouter.get("/rankUsers", ReportController.rankUsers);
 export default ReportRouter;
