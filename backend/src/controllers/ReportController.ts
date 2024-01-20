@@ -229,7 +229,37 @@ class ReportController {
             return ResponseController.Handle500Error(res, error);
         }
     }
+    public static fetchComments = async (req: Request, res: Response) => {
+        try {
+            const { reportId } = req.body;
 
+            if (!reportId) {
+                return ResponseController.HandleResponseError(res, {
+                    status: 400,
+                    message: "Report ID required for fetching comments!",
+                    errors: [],
+                });
+            }
+
+            const comments = await CommentModel.find({ reportId });
+
+            if (!comments || comments.length === 0) {
+                return ResponseController.HandleResponseError(res, {
+                    status: 404,
+                    message: "Comments not found!",
+                    errors: [],
+                });
+            }
+
+            return ResponseController.HandleSuccessResponse(res, {
+                status: 200,
+                message: "Comments fetched successfully!",
+                data: comments,
+            });
+        } catch (error) {
+            return ResponseController.Handle500Error(res, error);
+        }
+    };
 
 }
 
