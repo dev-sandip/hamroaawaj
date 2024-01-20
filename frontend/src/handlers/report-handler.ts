@@ -22,4 +22,9 @@ export default class ReportHandler {
   ): Promise<ServiceResponseType<ReportType>> => {
     return fetchUrl(`/report/updateLabel`, "PUT", { postId: reportId, label });
   };
+  public static getAllReports = (): Promise<
+    ServiceResponseType<ReportType[]>
+  > => {
+    return fetchUrl("/report/fetchall", "GET");
+  };
 }
