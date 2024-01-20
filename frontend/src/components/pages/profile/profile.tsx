@@ -8,7 +8,7 @@ import PostCard from "../card/post-card";
 import toast from "react-hot-toast";
 import AuthHandler from "@/handlers/auth-handler";
 import { CameraIcon } from "lucide-react";
-
+import { motion } from "framer-motion";
 const Profile = () => {
   const navigate = useNavigate();
   const { user, setUser } = useGlobalContext();
@@ -56,7 +56,7 @@ const Profile = () => {
           const base64Data = reader.result as string;
           const res = await AuthHandler.updateAvatar(
             base64Data,
-            user?._id as string,
+            user?._id as string
           );
           if (res.success) {
             toast.success("Profile image updated successfully");
@@ -74,22 +74,43 @@ const Profile = () => {
   return (
     <>
       <div className="flex flex-col items-center gap-6 p-6">
-        <Avatar
-          className="h-24 w-24 relative group cursor-pointer"
-          onClick={handleImageUpload}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
         >
-          <AvatarImage alt="" src={user?.profileImg} />
-          <AvatarFallback>JP</AvatarFallback>
-          <div className="absolute w-[200%] h-[200%] bg-muted opacity-0 group-hover:opacity-60 transition-opacity duration-300 "></div>
-          <CameraIcon className="absolute inset-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6  rounded-full text-primary-500 opacity-0 group-hover:opacity-100" />
-        </Avatar>
+          <Avatar
+            className="h-24 w-24 relative group cursor-pointer"
+            onClick={handleImageUpload}
+          >
+            <AvatarImage alt="" src={user?.profileImg} />
+            <AvatarFallback>JP</AvatarFallback>
+            <div className="absolute w-[200%] h-[200%] bg-muted opacity-0 group-hover:opacity-60 transition-opacity duration-300 "></div>
+            <CameraIcon className="absolute inset-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6  rounded-full text-primary-500 opacity-0 group-hover:opacity-100" />
+          </Avatar>
+        </motion.div>
         <div className="grid gap-1 text-center">
-          <div className="text-2xl font-bold">{user?.name}</div>
-          <div className="text-lg text-gray-500 dark:text-gray-400">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-2xl font-bold"
+          >
+            {user?.name}
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-lg text-gray-500 dark:text-gray-400"
+          >
             {user?.email}
-          </div>
+          </motion.div>
         </div>
-        <img
+        <motion.img
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
           alt="User Image"
           className="w-full max-w-2xl overflow-hidden rounded-lg object-contain object-center"
           height="400"

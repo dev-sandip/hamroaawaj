@@ -68,7 +68,7 @@ const PostCard = ({ Preport }: { Preport: ReportType }) => {
   return (
     <>
       <motion.div
-      layout
+        layout
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
@@ -103,11 +103,15 @@ const PostCard = ({ Preport }: { Preport: ReportType }) => {
                 {report.isCompleted ? (
                   <Badge variant="destructive">Completed</Badge>
                 ) : (
-                  <Badge variant="secondary">Pending</Badge>
+                  <Badge variant="secondary" className="bg-background">
+                    Pending
+                  </Badge>
                 )}
                 {report.labels.length > 0 &&
                   report.labels.map((label) => (
-                    <Badge variant="outline">{label}</Badge>
+                    <Badge variant="secondary" className="bg-background">
+                      {label}
+                    </Badge>
                   ))}
               </span>
             </div>

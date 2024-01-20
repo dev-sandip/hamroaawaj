@@ -86,7 +86,7 @@ export default function Side() {
             <div className="space-y-3 flex-grow">
               {navItems.map((item, index) => {
                 if (
-                  (!user?._id || !user.isAdmin || !user.isMod) &&
+                  !(user?.isAdmin || user?.isMod) &&
                   item.href === "/dashboard"
                 ) {
                   return null;
