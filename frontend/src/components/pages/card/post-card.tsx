@@ -80,6 +80,12 @@ const PostCard = ({ Preport }: { Preport: ReportType }) => {
                   {" "}
                   from{" "}
                   {report.location[0].toUpperCase() + report.location.slice(1)}
+                  {/* {" "}
+                  at{" "}
+                  {new Date(report.createdAt).toLocaleDateString(undefined, {
+                    month: "short",
+                    day: "numeric",
+                  })} */}
                 </span>
               </h2>
               <span className="flex gap-2">
