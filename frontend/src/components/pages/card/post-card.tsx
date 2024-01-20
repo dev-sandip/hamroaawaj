@@ -2,9 +2,8 @@ import { Button } from "@/components/ui/button";
 import { UserType } from "@/types/user.types";
 import { ReportType } from "@/validators/report-validators";
 import { useEffect, useRef, useState } from "react";
-import { BiUpvote } from "react-icons/bi";
 import { PiShareFatThin } from "react-icons/pi";
-import { BiDownvote } from "react-icons/bi";
+import { AiTwotoneDislike } from "react-icons/ai";
 import AuthHandler from "@/handlers/auth-handler";
 import { Badge } from "@/components/ui/badge";
 import { IoCheckmarkDone } from "react-icons/io5";
@@ -14,6 +13,7 @@ import CommentBox from "./comment-box";
 import { cn } from "@/lib/utils";
 import { shadows } from "@/assets/constants/styles";
 import { motion } from "framer-motion";
+import { PiHandshakeDuotone } from "react-icons/pi";
 
 const PostCard = ({ Preport }: { Preport: ReportType }) => {
   const [user, setuser] = useState({} as UserType);
@@ -182,7 +182,7 @@ const PostCard = ({ Preport }: { Preport: ReportType }) => {
                     : "text-coolGray-400"
                 )}
               >
-                <BiUpvote className="w-5 h-5" />
+                <PiHandshakeDuotone className="w-6 h-6" />
                 <span className="text-lg">
                   {report.upvote.length && report.upvote.length}
                 </span>
@@ -198,7 +198,7 @@ const PostCard = ({ Preport }: { Preport: ReportType }) => {
                     : "text-coolGray-400"
                 )}
               >
-                <BiDownvote className="w-5 h-5" />
+                <AiTwotoneDislike className="w-5 h-5" />
                 <span className="text-lg">
                   {report.downvote.length && report.downvote.length}
                 </span>
