@@ -1,6 +1,7 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import RootLayout from "./components/layouts/root-layout";
 import { Suspense, lazy } from "react";
+import { useGlobalContext } from "./hooks/use-global-context";
 
 const LandingPage = lazy(
   () => import("./components/pages/landing/landing-page")
@@ -21,12 +22,16 @@ const IndividualUserPage = lazy(
 const EmergencyPage = lazy(
   () => import("./components/pages/emergency/emergency-page")
 );
+const TopContributorsPage = lazy(
+  () => import("./components/pages/contributors/top-contributors")
+);
 
 interface RouteType {
   path: string;
   Layout?: ({ children }: { children: React.ReactNode }) => JSX.Element;
   Component: React.LazyExoticComponent<() => JSX.Element>;
   noRootLayout?: boolean;
+  isProtected?: boolean;
 }
 
 const routes: RouteType[] = [
@@ -47,25 +52,31 @@ const routes: RouteType[] = [
   {
     path: "/report",
     Component: ReportPage,
+    isProtected: true,
   },
   {
     path: "/profile",
     Component: ProfilePage,
+    isProtected: true,
   },
   {
     path: "/dashboard",
     Component: AdminPage,
+    isProtected: true,
   },
   {
     path: "/dashboard/reports/:reportId",
     Component: IndividualReportPage,
+    isProtected: true,
   },
   {
     path: "/dashboard/users/:userId",
+    isProtected: true,
     Component: IndividualUserPage,
   },
   {
     path: "/dashboard/:q",
+    isProtected: true,
     Component: AdminPage,
   },
   {
@@ -80,12 +91,17 @@ const routes: RouteType[] = [
     path: "/feedback",
     Component: FeedbackPage,
   },
+  {
+    path: "top-contributors",
+    Component: TopContributorsPage,
+  },
 ];
 
 const App = () => {
+  const { user } = useGlobalContext();
   return (
     <Routes>
-      {routes.map(({ path, Layout, Component, noRootLayout }) => {
+      {routes.map(({ path, Layout, Component, noRootLayout, isProtected }) => {
         const CompWithLayout = Layout ? (
           <Layout>
             <Suspense fallback={<div>Loading...</div>}>
@@ -97,6 +113,10 @@ const App = () => {
             <Component />
           </Suspense>
         );
+        if (isProtected && !user?._id) {
+          const navigate = useNavigate();
+          navigate("/login");
+        }
         return (
           <Route
             key={path}

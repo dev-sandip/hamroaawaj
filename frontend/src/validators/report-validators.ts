@@ -21,4 +21,5 @@ export type ReportType = z.infer<typeof ReportValidator.ReportSchema> & {
   labels: string[];
   upvote: string[];
   downvote: string[];
+  createdAt: string;
 };

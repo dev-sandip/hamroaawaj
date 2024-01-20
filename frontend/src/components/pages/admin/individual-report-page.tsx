@@ -5,17 +5,7 @@ import ReportHandler from "@/handlers/report-handler";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
-
-const labels = [
-  {
-    label: "Label 1",
-    value: "label1",
-  },
-  {
-    label: "Label 2",
-    value: "label2",
-  },
-];
+import labels from "@/assets/constants/labels.json";
 
 const IndividualReportPage = () => {
   const imgRef = useRef<HTMLImageElement | null>(null);
@@ -106,10 +96,13 @@ const IndividualReportPage = () => {
           </div>
         </div>
         <div className="flex flex-col gap-4">
-          <h3>Add labels here</h3>
+          <h3 className="">Add labels here</h3>
           <Combobox
             placeholder="labels"
-            arrValues={labels}
+            arrValues={labels.map((v) => ({
+              label: v,
+              value: v.toLowerCase(),
+            }))}
             location={tag}
             setLocation={setTag}
           />

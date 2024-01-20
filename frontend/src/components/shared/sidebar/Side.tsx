@@ -59,24 +59,34 @@ export default function Side() {
         <div className="mt-6 flex flex-1 flex-col justify-between flex-grow">
           <nav className="-mx-3 space-y-6  flex flex-col justify-between flex-grow">
             <div className="space-y-3 flex-grow">
-              {navItems.map((item, index) => (
-                <Link
-                  key={index}
-                  className={cn(
-                    "transform items-center rounded-lg px-3 py-2 text-muted-foreground transition-colors duration-300 hover:text-foreground hover:text-gray-700 flex gap-4 justify-start",
-                    item.href === "/emergency" && "text-destructive",
-                    item.href === pathname
-                      ? "underline underline-offset-2"
-                      : ""
-                  )}
-                  to={item.href}
-                >
-                  <item.Icon className="text-2xl" />
-                  <span className="mx-2 text-lg font-medium">{item.label}</span>
-                </Link>
-              ))}
+              {navItems.map((item, index) => {
+                if (
+                  (!user?._id || !user.isAdmin || !user.isMod) &&
+                  item.href === "/dashboard"
+                ) {
+                  return null;
+                }
+                return (
+                  <Link
+                    key={index}
+                    className={cn(
+                      "transform items-center rounded-lg px-3 py-2 text-muted-foreground transition-colors duration-300 hover:text-foreground hover:text-gray-700 flex gap-4 justify-start",
+                      item.href === "/emergency" && "text-destructive",
+                      item.href === pathname
+                        ? "underline underline-offset-2"
+                        : ""
+                    )}
+                    to={item.href}
+                  >
+                    <item.Icon className="text-2xl" />
+                    <span className="mx-2 text-lg font-medium">
+                      {item.label}
+                    </span>
+                  </Link>
+                );
+              })}
             </div>
-            {user && (
+            {user?._id ? (
               <Button
                 onClick={handleLogout}
                 variant="secondary"
@@ -85,6 +95,12 @@ export default function Side() {
                 <AiOutlineLogout className="text-2xl" />
                 <span className="mx-2 text-lg font-medium">Logout</span>
               </Button>
+            ) : (
+              <Link to="/login" className="w-full justify-start">
+                <Button variant="secondary" className="w-full justify-center">
+                  Login
+                </Button>
+              </Link>
             )}
           </nav>
         </div>

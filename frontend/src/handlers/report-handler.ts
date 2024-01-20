@@ -2,6 +2,7 @@ import { ReportType } from "@/validators/report-validators";
 import { fetchUrl } from "./handler";
 import { ServiceResponseType } from "@/types/handler-response.types";
 import { CommentType } from "@/types/report.types";
+import { UserType } from "@/types/user.types";
 
 export default class ReportHandler {
   public static createReport = (reportData: ReportType): Promise<any> => {
@@ -74,5 +75,14 @@ export default class ReportHandler {
     ServiceResponseType<ReportType[]>
   > => {
     return fetchUrl(`/report/notCompletedReports`, "GET");
+  };
+  public static getMyReports = (
+    userId: string
+  ): Promise<ServiceResponseType<ReportType[]>> => {
+    return fetchUrl(`/report/userReports/${userId}`, "GET");
+  };
+
+  public static getRankUsers = (): Promise<ServiceResponseType<UserType[]>> => {
+    return fetchUrl(`/report/rankUsers`, "GET");
   };
 }
