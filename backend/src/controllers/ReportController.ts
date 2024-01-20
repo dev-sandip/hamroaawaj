@@ -233,6 +233,8 @@ class ReportController {
         });
       }
 
+
+
       const comments = await CommentModel.find({ reportId });
 
       if (!comments || comments.length === 0) {
@@ -252,6 +254,63 @@ class ReportController {
       return ResponseController.Handle500Error(res, error);
     }
   };
+
+    public static vote = async (req: Request, res: Response) => {
+        try {
+            const { userId, reportId, voteType } = req.body;
+            console.log("🚀 ~ ReportController ~ vote= ~ userId, reportId, voteType:", userId, reportId, voteType)
+
+            if (!userId || !reportId || !voteType) {
+                return ResponseController.HandleResponseError(res, {
+                    status: 400,
+                    message: "Report ID, userId, and voteType are required for voting.",
+                    errors: [],
+                });
+            }
+
+            const validUser = await UserModel.findById(userId);
+            const validReport = await ReportModel.findById(reportId);
+
+            if (!validUser || !validReport) {
+                return ResponseController.HandleResponseError(res, {
+                    status: 404,
+                    message: "User or Report not found!",
+                    errors: [],
+                });
+            }
+
+            validReport.upvote = validReport.upvote.filter(upvoterId => upvoterId !== userId);
+
+            validReport.downvote = validReport.downvote.filter(downvoterId => downvoterId !== userId);
+
+            if (voteType === "upvote") {
+                validReport.upvote.push(userId);
+            } else if (voteType === "downvote") {
+                validReport.downvote.push(userId);
+            } else {
+                return ResponseController.HandleResponseError(res, {
+                    status: 400,
+                    message: "Invalid voteType. Use 'upvote' or 'downvote'.",
+                    errors: [],
+                });
+            }
+
+            await validReport.save();
+
+            return ResponseController.HandleSuccessResponse(res, {
+                status: 200,
+                message: `${voteType} successful!`,
+                data: validReport,
+            });
+        } catch (error) {
+            return ResponseController.Handle500Error(res, error);
+        }
+    };
+
+
+
+
+
 }
 
 export default ReportController;
