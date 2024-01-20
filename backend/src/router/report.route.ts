@@ -13,4 +13,5 @@ ReportRouter.get("/id/:id", ReportController.getReportById);
 ReportRouter.get("/comments/:reportId", ReportController.fetchComments);
 ReportRouter.post("/vote", ReportController.vote);
 ReportRouter.get("/searchByFilter", ReportController.searchByFilter);
+ReportRouter.get("/notCompletedReports", ReportController.notCompletedReports);
 export default ReportRouter;

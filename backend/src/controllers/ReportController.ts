@@ -363,6 +363,34 @@ class ReportController {
 
 
 
+    public static notCompletedReports = async (req: Request, res: Response) => {
+        try {
+            const notCompletedReports = await ReportModel.find({ isCompleted: false });
+
+            if (notCompletedReports.length === 0) {
+                return ResponseController.HandleSuccessResponse(res, {
+                    status: 200,
+                    message: "No incomplete reports found.",
+                    data: [],
+                });
+            }
+
+            return ResponseController.HandleSuccessResponse(res, {
+                status: 200,
+                message: "Incomplete reports where isCompleted is false.",
+                data: notCompletedReports,
+            });
+        } catch (error) {
+            return ResponseController.Handle500Error(res, error);
+        }
+    };
+
+
+
+
+
 }
+
+
 
 export default ReportController;
