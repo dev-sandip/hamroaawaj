@@ -61,4 +61,10 @@ export default class ReportHandler {
       userId,
     });
   };
+
+  public static getNotCompletedReports = (): Promise<
+    ServiceResponseType<ReportType[]>
+  > => {
+    return fetchUrl(`/report/notCompletedReports`, "GET");
+  };
 }
