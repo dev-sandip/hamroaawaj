@@ -387,6 +387,38 @@ class ReportController {
 
 
 
+    public static getUserPersonalReports = async (req: Request, res: Response) => {
+        try {
+            const { userId } = req.params;
+
+            if (!userId) {
+                return ResponseController.HandleResponseError(res, {
+                    status: 400,
+                    message: "UserId is required for fetching user reports!",
+                    errors: [],
+                });
+            }
+
+            const userReports = await ReportModel.find({ userId });
+
+            if (!userReports || userReports.length === 0) {
+                return ResponseController.HandleResponseError(res, {
+                    status: 404,
+                    message: "No reports found associated with this userId",
+                    errors: [],
+                });
+            }
+
+            return ResponseController.HandleSuccessResponse(res, {
+                status: 200,
+                message: "User Reports Fetched Successfully",
+                data: userReports,
+            });
+        } catch (error) {
+            return ResponseController.Handle500Error(res, error);
+        }
+    };
+
 
 
 }
