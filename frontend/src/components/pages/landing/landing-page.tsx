@@ -2,6 +2,16 @@ import { useEffect, useState } from "react";
 import PostCard from "../card/post-card";
 import { ReportType } from "@/validators/report-validators";
 import ReportHandler from "@/handlers/report-handler";
+import { Button } from "@/components/ui/button";
+import { FilterIcon } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 const LandingPage = () => {
   const [posts, setPosts] = useState([] as ReportType[]);
@@ -21,6 +31,17 @@ const LandingPage = () => {
           <PostCard report={post} />
         ))}
       </div>
+
+      <Dialog>
+        <DialogTrigger>
+          <Button variant="outline" className="fixed right-4 top-24 ">
+            <FilterIcon />
+          </Button>
+        </DialogTrigger>
+        <DialogContent>
+          hwllo world
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
