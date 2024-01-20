@@ -10,7 +10,7 @@ class ReportController {
     public static ReportPost = async (req: Request, res: Response) => {
         try {
             const { userId, title, location, tag, text, files } = req.body;
-
+            console.log(req.body);
             const newReport = new Report({
                 userId,
                 title,

@@ -100,7 +100,11 @@ const ReportPage = () => {
       toast.error("Please fill all the fields");
       return;
     }
-    const res = await ReportHandler.createReport({ ...reportData, _id: "" });
+    const res = await ReportHandler.createReport({
+      ...data.data,
+      _id: "",
+      labels: [],
+    });
     if (res.success) {
       toast.success("Report created successfully");
       navigate("/");

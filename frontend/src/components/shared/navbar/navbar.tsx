@@ -37,7 +37,7 @@ const Navbar = () => {
         ))}
       </ul>
       <div className="flex items-center gap-4">
-        {!user ? (
+        {!user?._id ? (
           <Link to="/login">
             <Button variant="secondary" className="px-6">
               Login

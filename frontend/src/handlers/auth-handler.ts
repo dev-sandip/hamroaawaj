@@ -30,4 +30,7 @@ export default class AuthHandler {
   ): Promise<ServiceResponseType<UserType>> => {
     return fetchUrl(`/auth/verfiyUserByDoc`, "PUT", { userId });
   };
+  public static logout = (): Promise<ServiceResponseType<any>> => {
+    return fetchUrl("/auth/logout", "POST");
+  };
 }
