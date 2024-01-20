@@ -13,8 +13,9 @@ import ReportHandler from "@/handlers/report-handler";
 import toast from "react-hot-toast";
 import CommentBox from "./comment-box";
 
-const PostCard = ({ report }: { report: ReportType }) => {
+const PostCard = ({ Preport }: { Preport: ReportType }) => {
   const [user, setuser] = useState({} as UserType);
+  const [report, setReport] = useState(Preport as ReportType);
   const imgRef = useRef<HTMLImageElement>(null);
   useEffect(() => {
     const fetchUser = async () => {
@@ -54,6 +55,12 @@ const PostCard = ({ report }: { report: ReportType }) => {
     } catch (err) {
       toast.error("Something went wrong");
     }
+  };
+
+  const handleUpVote = async (type: "upvote" | "downvote") => {
+    const res = await ReportHandler.handleVote(report._id, user._id, type);
+    if (res.success) return setReport(res.data);
+    toast.error("Something went wrong");
   };
 
   return (
@@ -122,15 +129,17 @@ const PostCard = ({ report }: { report: ReportType }) => {
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <Button
+                onClick={() => handleUpVote("upvote")}
                 variant="ghost"
                 type="button"
                 title="Like post"
                 className="flex items-center justify-center gap-2 p-2"
               >
                 <BiUpvote className="w-5 h-5" />
-                <span className="text-lg">3</span>
+                <span className="text-lg">{1}</span>
               </Button>
               <Button
+                onClick={() => handleUpVote("downvote")}
                 variant="ghost"
                 title="Add a comment"
                 className="flex items-center justify-center p-2"

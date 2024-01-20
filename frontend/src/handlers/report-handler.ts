@@ -50,4 +50,15 @@ export default class ReportHandler {
   ): Promise<ServiceResponseType<CommentType[]>> => {
     return fetchUrl(`/report/comments/${reportId}`, "GET");
   };
+  public static handleVote = (
+    reportId: string,
+    userId: string,
+    voteType: string
+  ): Promise<ServiceResponseType<ReportType>> => {
+    return fetchUrl(`/report/vote`, "POST", {
+      reportId,
+      voteType,
+      userId,
+    });
+  };
 }

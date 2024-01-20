@@ -25,6 +25,7 @@ const CommentBox = ({ report }: { report: ReportType }) => {
     fetchComments();
   }, []);
 
+
   const handleSubmitComment = async (e: any) => {
     e.preventDefault();
     const res = await ReportHandler.addComment(

@@ -259,7 +259,7 @@ class ReportController {
       console.log(
         "🚀 ~ ReportController ~ vote= ~ userId, reportId, voteType:",
         userId,
-        reportId,
+        reportId,                             
         voteType
       );
 
