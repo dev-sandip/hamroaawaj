@@ -56,6 +56,7 @@ const LandingPage = () => {
       </div>
 
       <Dialog>
+        {/* //todo not working propperly */}
         <DialogTrigger>
           <Button variant="outline" className="fixed right-4 top-24 ">
             <FilterIcon />
