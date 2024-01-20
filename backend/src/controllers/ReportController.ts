@@ -316,7 +316,39 @@ class ReportController {
     };
 
 
+    public static searchByFilter = async (req: Request, res: Response) => {
+        try {
+            const { district, label } = req.params;
 
+            if (!district && !label) {
+                return ResponseController.HandleResponseError(res, {
+                    status: 400,
+                    message: "District and label are required for searching.",
+                    errors: [],
+                });
+            }
+
+            let query = {};
+
+            if (district) {
+                query['location'] = district;
+            }
+
+            if (label) {
+                query['labels'] = label;
+            }
+
+            const searchResults = await ReportModel.find(query);
+
+            return ResponseController.HandleSuccessResponse(res, {
+                status: 200,
+                message: "Search results fetched successfully!",
+                data: searchResults,
+            });
+        } catch (error) {
+            return ResponseController.Handle500Error(res, error);
+        }
+    };
 
 
 }
