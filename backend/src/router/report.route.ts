@@ -10,6 +10,6 @@ ReportRouter.put("/updateLabel", ReportController.UpdateLabel);
 ReportRouter.put("/compeleteReport", ReportController.isCompleted);
 ReportRouter.post("/comment", ReportController.Comment);
 ReportRouter.get("/id/:id", ReportController.getReportById);
-ReportRouter.get("/fetchComments", ReportController.fetchComments);
+ReportRouter.get("/comments/:reportId", ReportController.fetchComments);
 
 export default ReportRouter;

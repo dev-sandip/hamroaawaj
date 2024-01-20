@@ -45,4 +45,9 @@ export default class ReportHandler {
       userId,
     });
   };
+  public static getComments = (
+    reportId: string
+  ): Promise<ServiceResponseType<CommentType[]>> => {
+    return fetchUrl(`/report/comments/${reportId}`, "GET");
+  };
 }

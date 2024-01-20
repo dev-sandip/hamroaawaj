@@ -19,11 +19,11 @@ const CommentBox = ({ report }: { report: ReportType }) => {
 
   useEffect(() => {
     const fetchComments = async () => {
-      // const res = await ReportHandler.getComments(report._id); todo
-      // if (res.success) setComments(res.data);
+      const res = await ReportHandler.getComments(report._id);
+      if (res.success) setComments(res.data);
     };
     fetchComments();
-  }, [report._id]);
+  }, []);
 
   const handleSubmitComment = async (e: any) => {
     e.preventDefault();
