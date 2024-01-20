@@ -1,11 +1,11 @@
-// import Footer from "../shared/footer/footer";
 import Navbar from "../shared/navbar/navbar";
 import Side from "../shared/sidebar/Side";
 import { ScrollArea } from "../ui/scroll-area";
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <main className="flex flex-col justify-between h-screen">
+    
+    <main className="flex flex-col justify-between h-screen bg-muted">
       <Navbar />
       <div className="flex h- overflow-hidden">
         <Side />
@@ -13,6 +13,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       </div>
       {/* <Footer /> */}
     </main>
+    
   );
 };
 export default RootLayout;

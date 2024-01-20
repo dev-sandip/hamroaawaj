@@ -12,6 +12,8 @@ import ReportHandler from "@/handlers/report-handler";
 import toast from "react-hot-toast";
 import CommentBox from "./comment-box";
 import { cn } from "@/lib/utils";
+import { shadows } from "@/assets/constants/styles";
+import { motion } from "framer-motion";
 
 const PostCard = ({ Preport }: { Preport: ReportType }) => {
   const [user, setuser] = useState({} as UserType);
@@ -65,7 +67,16 @@ const PostCard = ({ Preport }: { Preport: ReportType }) => {
 
   return (
     <>
-      <div className="rounded-md shadow-md sm:w-[500px] bg-coolGray-900 text-coolGray-100">
+      <motion.div
+      layout
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        className={cn(
+          "rounded-md shadow-md sm:w-[500px] bg-coolGray-900 text-coolGray-100 border boreder-2 border-muted",
+          shadows.post
+        )}
+      >
         <div className="flex items-center justify-between p-3">
           <div className="flex items-center space-x-2">
             <img
@@ -129,7 +140,10 @@ const PostCard = ({ Preport }: { Preport: ReportType }) => {
           onClick={requestFullScreen}
           src={report.files[0]}
           alt=""
-          className="object-contain object-center w-full h-72 bg-coolGray-500 cursor-pointer"
+          className={cn(
+            "object-contain object-center w-full h-72 bg-coolGray-500 cursor-pointer",
+            shadows.img
+          )}
         />
         <div className="p-3 opacity-70">
           <div className="flex items-center justify-between">
@@ -148,7 +162,7 @@ const PostCard = ({ Preport }: { Preport: ReportType }) => {
               >
                 <BiUpvote className="w-5 h-5" />
                 <span className="text-lg">
-                  {report.upvote.length - report.downvote.length}
+                  {report.upvote.length && report.upvote.length}
                 </span>
               </Button>
               <Button
@@ -156,13 +170,16 @@ const PostCard = ({ Preport }: { Preport: ReportType }) => {
                 variant="ghost"
                 title="Add a comment"
                 className={cn(
-                  "flex items-center justify-center p-2",
+                  "flex items-center justify-center p-2 gap-2",
                   report.downvote.includes(user._id)
                     ? "text-red-500"
                     : "text-coolGray-400"
                 )}
               >
                 <BiDownvote className="w-5 h-5" />
+                <span className="text-lg">
+                  {report.downvote.length && report.downvote.length}
+                </span>
               </Button>
               <CommentBox report={report} />
             </div>
@@ -176,7 +193,7 @@ const PostCard = ({ Preport }: { Preport: ReportType }) => {
             </Button>
           </div>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 };

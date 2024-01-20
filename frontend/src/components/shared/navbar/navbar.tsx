@@ -1,18 +1,15 @@
-import { Button } from "@/components/ui/button";
-import { Link, useLocation } from "react-router-dom";
-import navItems from "./nav-items";
+import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { shadows } from "@/assets/constants/styles";
 import { useGlobalContext } from "@/hooks/use-global-context";
-import { RxAvatar } from "react-icons/rx";
+import { Button } from "@/components/ui/button";
 
 const Navbar = () => {
-  const { pathname } = useLocation();
-  const { user } = useGlobalContext();
+    const { user } = useGlobalContext();
   return (
     <nav
       className={cn(
-        "flex items-center justify-between px-20 py-4 w-screen",
+        "flex items-center justify-between px-20 py-4 w-screen z-50",
         shadows.sm
       )}
     >
@@ -23,19 +20,12 @@ const Navbar = () => {
           className="w-10 h-10"
         />
       </Link>
-      <ul className="flex gap-8 text-muted-foreground ml-12">
-        {navItems.map((item, index) => (
-          <li
-            key={index}
-            className={cn(
-              "hover:text-primary",
-              pathname === item.href ? "text-primary underline underline-offset-2" : ""
-            )}
-          >
-            <Link to={item.href}>{item.label}</Link>
-          </li>
-        ))}
-      </ul>
+      <span
+        className="text-2xl font-bold text-gray-700"
+        style={{ fontFamily: "'Xanh Mono', monospace" }}
+      >
+        HAMRO AAWAJ
+      </span>
       <div className="flex items-center gap-4">
         {!user?._id ? (
           <Link to="/login">
