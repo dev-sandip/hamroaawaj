@@ -19,9 +19,12 @@ import { useEffect, useState } from "react";
 export function ComboboxDemo({
   location,
   setLocation,
+  arrValues,
 }: {
   location: string;
   setLocation: React.Dispatch<React.SetStateAction<string>>;
+  arrValues: { label: string; value: string }[];
+
 }) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(location);
@@ -29,17 +32,6 @@ export function ComboboxDemo({
   useEffect(() => {
     setLocation(value);
   }, [value]);
-
-  const districts = [
-    {
-      value: "dang",
-      label: "Dang",
-    },
-    {
-      value: "kathmandu",
-      label: "Kathmandu",
-    },
-  ];
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -52,7 +44,7 @@ export function ComboboxDemo({
           className="w-[200px] justify-between"
         >
           {value
-            ? districts.find((district) => district.value === value)?.label
+            ? arrValues.find((district) => district.value === value)?.label
             : "Select district..."}
           <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
@@ -62,7 +54,7 @@ export function ComboboxDemo({
           <CommandInput placeholder="Search district..." className="h-9" />
           <CommandEmpty>No district found.</CommandEmpty>
           <CommandGroup>
-            {districts.map((district) => (
+            {arrValues.map((district) => (
               <CommandItem
                 key={district.value}
                 value={district.value}
