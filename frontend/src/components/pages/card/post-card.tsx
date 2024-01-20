@@ -8,7 +8,9 @@ import { PiShareFatThin } from "react-icons/pi";
 import { BiDownvote } from "react-icons/bi";
 import AuthHandler from "@/handlers/auth-handler";
 import { Badge } from "@/components/ui/badge";
-import { BsThreeDotsVertical } from "react-icons/bs";
+import { IoCheckmarkDone } from "react-icons/io5";
+import ReportHandler from "@/handlers/report-handler";
+import toast from "react-hot-toast";
 
 const PostCard = ({ report }: { report: ReportType }) => {
   const [user, setuser] = useState({} as UserType);
@@ -25,6 +27,15 @@ const PostCard = ({ report }: { report: ReportType }) => {
     if (!imgRef.current) return;
     if (imgRef.current.requestFullscreen) {
       imgRef.current.requestFullscreen();
+    }
+  };
+
+  const markAsCompleted = async () => {
+    const res = await ReportHandler.markAsComplete(report._id);
+    if (res.success) {
+      toast.success("Marked as completed");
+    } else {
+      toast.error("Something went wrong");
     }
   };
 
@@ -48,19 +59,27 @@ const PostCard = ({ report }: { report: ReportType }) => {
                 </span>
               </h2>
               <span className="flex gap-2">
-                {report.labels.length > 0 ? (
+                {report.isCompleted ? (
+                  <Badge variant="destructive">Completed</Badge>
+                ) : (
+                  <Badge variant="secondary">Pending</Badge>
+                )}
+                {report.labels.length > 0 &&
                   report.labels.map((label) => (
                     <Badge variant="outline">{label}</Badge>
-                  ))
-                ) : (
-                  <Badge variant="outline">No badge</Badge>
-                )}
+                  ))}
               </span>
             </div>
           </div>
-          <Button variant="ghost" title="More options">
-            <BsThreeDotsVertical className="w-5 h-5" />
-          </Button>
+          {(user.isAdmin || user.isMod) && !report.isCompleted && (
+            <Button
+              onClick={markAsCompleted}
+              title="Mark as completed"
+              variant="ghost"
+            >
+              <IoCheckmarkDone className="w-5 h-5" />
+            </Button>
+          )}
         </div>
 
         <div className=" text-xs leading-none text-coolGray-400 p-3 flex flex-col gap-3">

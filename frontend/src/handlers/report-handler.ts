@@ -27,4 +27,10 @@ export default class ReportHandler {
   > => {
     return fetchUrl("/report/fetchall", "GET");
   };
+
+  public static markAsComplete = (
+    reportId: string
+  ): Promise<ServiceResponseType<ReportType>> => {
+    return fetchUrl(`/report/compeleteReport`, "PUT", { reportId: reportId });
+  };
 }
