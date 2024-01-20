@@ -8,7 +8,7 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Combobox } from "../report/combo-box";
 import districts from "@/assets/constants/district.json";
 import toast from "react-hot-toast";
-import Contributors from "../top-contributors/contributors";
+import Contributors from "./contributors";
 import labels from "@/assets/constants/labels.json";
 
 const LandingPage = () => {
@@ -31,7 +31,7 @@ const LandingPage = () => {
   };
 
   return (
-    <div className="w-full h-full mt-6 mx-20 flex justify-between items-center gap-12">
+    <div className="w-full h-full mt-6 mx-20 flex justify-evenly items-center gap-12">
       <div className="flex flex-col gap-6 items-center justify-center ">
         {posts.length > 0 ? (
           posts.map((post) => <PostCard Preport={post} />)

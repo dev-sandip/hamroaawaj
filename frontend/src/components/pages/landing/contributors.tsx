@@ -1,9 +1,21 @@
 import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
+import ReportHandler from "@/handlers/report-handler";
 import { UserType } from "@/types/user.types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Contributors = () => {
   const [topContributors, setTopContributors] = useState([] as UserType[]);
+
+  useEffect(() => {
+    const getContributors = async () => {
+      const res = await ReportHandler.getRankUsers();
+      if (res.success) {
+        setTopContributors(res.data);
+      }
+    };
+    getContributors();
+  });
+
   return (
     <>
       <div className="flex flex-col gap-4 p-4 min-w-96 self-start">
