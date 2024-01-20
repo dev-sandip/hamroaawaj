@@ -223,5 +223,45 @@ class UserAuthController {
       return ResponseController.Handle500Error(res, error);
     }
   };
+
+
+
+  public static changeProfilePicture = async (req: Request, res: Response) => {
+    try {
+      const { userId, profileImg } = req.body;
+
+      if (!userId || !profileImg) {
+        return ResponseController.HandleResponseError(res, {
+          status: 400,
+          message: "UserId and profileImg are required for changing profile picture",
+          errors: [],
+        });
+      }
+
+
+      const user = await User.findById(userId);
+
+      if (!user) {
+        return ResponseController.HandleResponseError(res, {
+          status: 404,
+          message: "User not found",
+          errors: [],
+        });
+      }
+
+      user.profileImg = profileImg;
+
+      await user.save();
+
+      return ResponseController.HandleSuccessResponse(res, {
+        status: 200,
+        message: "Profile picture changed successfully",
+        data: user,
+      });
+    } catch (error) {
+      return ResponseController.Handle500Error(res, error);
+    }
+
+  }
 }
 export default UserAuthController;
