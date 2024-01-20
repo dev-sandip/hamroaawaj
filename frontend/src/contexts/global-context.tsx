@@ -8,6 +8,8 @@ export interface GlobalContextType {
   setUser: React.Dispatch<React.SetStateAction<UserType | null>>;
   isLoaded: boolean;
   setIsLoaded: React.Dispatch<React.SetStateAction<boolean>>;
+  isSidebarOpen: boolean;
+  setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 // global provider component
 export const GlobalContextProvider = ({
@@ -17,12 +19,20 @@ export const GlobalContextProvider = ({
 }) => {
   const [user, setUser] = useState<UserType | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(() => {
+    if (window.innerWidth > 768) {
+      return true;
+    }
+    return false;
+  });
 
   const globalContextValue: GlobalContextType = {
     user,
     setUser,
     isLoaded,
     setIsLoaded,
+    isSidebarOpen,
+    setIsSidebarOpen,
   };
 
   useEffect(() => {
