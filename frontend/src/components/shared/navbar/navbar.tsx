@@ -5,23 +5,19 @@ import { useGlobalContext } from "@/hooks/use-global-context";
 import { Button } from "@/components/ui/button";
 
 const Navbar = () => {
-    const { user } = useGlobalContext();
+  const { user } = useGlobalContext();
   return (
     <nav
       className={cn(
-        "flex items-center justify-between px-20 py-4 w-screen z-50",
+        "flex items-center justify-between px-20 py-4 bg-muted w-screen z-50",
         shadows.sm
       )}
     >
       <Link to="/">
-        <img
-          src="https://www.svgrepo.com/show/427113/grid.svg"
-          alt=""
-          className="w-10 h-10"
-        />
+        <img src="logo.png" alt="" className="aspect-square h-16" />
       </Link>
       <span
-        className="text-2xl font-bold text-gray-700"
+        className="text-3xl font-bold text-gray-700"
         style={{ fontFamily: "'Xanh Mono', monospace" }}
       >
         HAMRO AAWAJ
@@ -35,7 +31,10 @@ const Navbar = () => {
           </Link>
         ) : (
           <Link to="/profile">
-            <img src={user.profileImg} className="w-10 h-10 rounded-full origin-center object-cover" />
+            <img
+              src={user.profileImg}
+              className="w-10 h-10 rounded-full origin-center object-cover"
+            />
           </Link>
         )}
       </div>
