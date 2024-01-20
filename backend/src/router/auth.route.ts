@@ -13,5 +13,6 @@ authRouter.post("/logout", UserAuthController.logout)
 authRouter.put("/verfiyUserByDoc", UserAuthController.VerifyUserByValidDoc)
 authRouter.get("/unverifiedUsers", UserAuthController.getUnverifiedUsers)
 authRouter.get("/id/:id", UserAuthController.getUserById)
+authRouter.post("/profileImg", UserAuthController.changeProfilePicture);
 
 export default authRouter;
