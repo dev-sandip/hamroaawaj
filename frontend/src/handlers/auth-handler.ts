@@ -33,4 +33,14 @@ export default class AuthHandler {
   public static logout = (): Promise<ServiceResponseType<any>> => {
     return fetchUrl("/auth/logout", "POST");
   };
+
+  public static updateAvatar = (
+    profileImg: string,
+    userId: string
+  ): Promise<ServiceResponseType<UserType>> => {
+    return fetchUrl(`/auth/profileImg`, "POST", {
+      userId,
+      profileImg,
+    });
+  };
 }
