@@ -117,9 +117,7 @@ const PostCard = ({ Preport }: { Preport: ReportType }) => {
               </span>
             </div>
           </div>
-          {
-          // (user.isAdmin || user.isMod) &&
-           !report.isCompleted && (
+          {!user.isAdmin && !report.isCompleted && (
             <Button
               onClick={markAsCompleted}
               title="Mark as completed"
@@ -127,8 +125,7 @@ const PostCard = ({ Preport }: { Preport: ReportType }) => {
             >
               <IoCheckmarkDone className="w-5 h-5" />
             </Button>
-          // {/* )} */}
-           )}
+          )}
         </div>
 
         <div className=" text-xs leading-none text-coolGray-400 p-3 flex flex-col gap-3">
