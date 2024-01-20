@@ -10,7 +10,7 @@ ReportRouter.put("/updateLabel", ReportController.UpdateLabel);
 ReportRouter.put("/compeleteReport", ReportController.isCompleted);
 ReportRouter.post("/comment", ReportController.Comment);
 ReportRouter.get("/id/:id", ReportController.getReportById);
-ReportRouter.get("/comments/:reportId", ReportController.fetchComments);
-ReportRouter.get("/vote", ReportController.vote);
-ReportRouter.get("/searchByFilter", ReportController.searchByFilter)
+ReportRouter.get("/fetchComments", ReportController.fetchComments);
+ReportRouter.post("/vote", ReportController.vote);
+ReportRouter.get("/searchByFilter", ReportController.searchByFilter);
 export default ReportRouter;
