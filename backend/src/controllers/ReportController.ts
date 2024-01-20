@@ -421,6 +421,51 @@ class ReportController {
 
 
 
+    public static rankUsers = async (req: Request, res: Response) => {
+        try {
+            // Fetch users
+            const users = await UserModel.find();
+
+            // Fetch reports
+            const reports = await Report.find();
+
+            // Create a map to store upvote counts
+            const upvoteCounts: Map<string, number> = new Map();
+
+            // Count upvotes
+            reports.forEach((report) => {
+                report.upvote.forEach((upvote) => {
+                    const userIdString = upvote.toString();
+                    upvoteCounts.set(userIdString, (upvoteCounts.get(userIdString) || 0) + 1);
+                });
+            });
+
+            // Sort users based on upvote counts
+            const rankedUsers = users.sort((a, b) => {
+                const upvoteDiff = (upvoteCounts.get(b._id.toString()) || 0) - (upvoteCounts.get(a._id.toString()) || 0);
+                return upvoteDiff !== 0 ? upvoteDiff : a._id.toString().localeCompare(b._id.toString());
+            }).slice(0, 5);
+
+            console.log('Upvote Counts:', Array.from(upvoteCounts.entries()));
+            console.log('Sorted Users:', rankedUsers.map(user => ({ _id: user._id, upvoteCount: upvoteCounts.get(user._id.toString()) || 0 })));
+
+            return res.status(200).json({
+                status: 200,
+                message: "Users ranked successfully",
+                data: rankedUsers,
+            });
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({
+                status: 500,
+                message: "Internal Server Error",
+                errors: [error.message || "An error occurred"],
+            });
+        }
+    };
+
+
+
 }
 
 
