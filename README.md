@@ -6,7 +6,7 @@ Hamro Aawaz is a platform where users can address community issues, and the gove
 
 ## Authors
 
-- [@git-sandip](https://github.com/git-sandip)
+- [@dev-sandip](https://github.com/dev-sandip)
 - [@jrTilak](https://github.com/jrTilak)
 - [@AnuragDahal](https://github.com/AnuragDahal)
 - [@kaleUtsab](https://github.com/kaleUtsab)
